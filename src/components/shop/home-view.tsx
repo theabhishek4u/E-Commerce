@@ -3,212 +3,558 @@
 import { useShopStore } from '@/store/shop-store';
 import { ProductCard } from './product-card';
 import { formatINR, calculateDiscount } from '@/lib/format';
-import { ArrowRight, TrendingUp, Clock, Percent, Truck, Shield, Zap, Flame, Sparkles, RotateCcw, Star } from 'lucide-react';
+import {
+  ArrowRight,
+  TrendingUp,
+  Truck,
+  Shield,
+  Percent,
+  Zap,
+  Sparkles,
+  RotateCcw,
+  Star,
+  Search,
+  SlidersHorizontal,
+  ChevronDown,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const container = { hidden: {}, show: { transition: { staggerChildren: 0.05 } } };
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+};
 
 export function HomeView() {
-  const { products, categories, selectedCategory, setSelectedCategory, searchQuery, sortBy, setSortBy, navigateToProduct } = useShopStore();
+  const {
+    products,
+    categories,
+    selectedCategory,
+    setSelectedCategory,
+    searchQuery,
+    sortBy,
+    setSortBy,
+    navigateToProduct,
+    wishlistIds,
+    isInWishlist,
+    toggleWishlist,
+  } = useShopStore();
+
+  const [sortOpen, setSortOpen] = useState(false);
 
   const featuredProducts = useMemo(() => products.filter((p) => p.featured), [products]);
   const saleProducts = useMemo(() => products.filter((p) => p.onSale), [products]);
   const newArrivals = useMemo(() => products.filter((p) => p.newArrival), [products]);
-  const topRated = useMemo(() => [...products].sort((a, b) => b.rating - a.rating).slice(0, 8), [products]);
+  const topRated = useMemo(
+    () => [...products].sort((a, b) => b.rating - a.rating).slice(0, 8),
+    [products]
+  );
 
   const filteredProducts = useMemo(() => {
     let filtered = [...products];
-    if (selectedCategory) filtered = filtered.filter((p) => categories.find((c) => c.id === p.categoryId)?.slug === selectedCategory);
-    if (searchQuery) { const q = searchQuery.toLowerCase(); filtered = filtered.filter((p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || p.brand?.toLowerCase().includes(q)); }
+    if (selectedCategory)
+      filtered = filtered.filter(
+        (p) => categories.find((c) => c.id === p.categoryId)?.slug === selectedCategory
+      );
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          p.brand?.toLowerCase().includes(q)
+      );
+    }
     switch (sortBy) {
-      case 'price-low': filtered.sort((a, b) => a.price - b.price); break;
-      case 'price-high': filtered.sort((a, b) => b.price - a.price); break;
-      case 'rating': filtered.sort((a, b) => b.rating - a.rating); break;
-      case 'newest': filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); break;
-      default: filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating);
+      case 'price-low':
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-high':
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+      case 'rating':
+        filtered.sort((a, b) => b.rating - a.rating);
+        break;
+      case 'newest':
+        filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+      default:
+        filtered.sort(
+          (a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating
+        );
     }
     return filtered;
   }, [products, selectedCategory, searchQuery, sortBy, categories]);
 
   const currentCategory = categories.find((c) => c.slug === selectedCategory);
 
+  const showHero = !searchQuery && !selectedCategory;
+
+  const sortOptions = [
+    { value: 'featured', label: 'Featured' },
+    { value: 'price-low', label: 'Price: Low → High' },
+    { value: 'price-high', label: 'Price: High → Low' },
+    { value: 'rating', label: 'Top Rated' },
+    { value: 'newest', label: 'Newest' },
+  ];
+
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      {!searchQuery && !selectedCategory && (
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&h=500&fit=crop')] bg-cover bg-center opacity-15" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
-          <div className="relative max-w-7xl mx-auto px-4 py-14 sm:py-20">
-            <motion.div initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }} className="max-w-2xl">
-              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                <Badge className="mb-4 bg-amber-500/20 text-amber-300 border-amber-500/30 backdrop-blur-sm">
-                  <Flame className="h-3 w-3 mr-1" /> Great Indian Sale is Live!
+      {/* ═══════════════════════════════════════════════════════════
+          HERO SECTION
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && (
+        <section className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900">
+          {/* Decorative glow orbs */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
+            <div className="absolute top-1/3 right-0 h-72 w-72 rounded-full bg-blue-400/15 blur-[100px]" />
+            <div className="absolute -bottom-20 left-1/3 h-80 w-80 rounded-full bg-blue-500/10 blur-[110px]" />
+          </div>
+
+          {/* Background image overlay */}
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1400&h=600&fit=crop')] bg-cover bg-center opacity-[0.07]" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="max-w-2xl"
+            >
+              {/* Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+              >
+                <Badge className="mb-6 bg-blue-500/15 text-blue-300 border border-blue-400/25 backdrop-blur-md px-4 py-1.5 text-sm font-medium">
+                  ✨ New Collection 2025
                 </Badge>
               </motion.div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
-                Shop the Best <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">Deals</span> in India
-              </h1>
-              <p className="text-slate-300 text-lg mb-8 max-w-lg">Up to 70% off on electronics, fashion, home essentials and more.</p>
-              <div className="flex flex-wrap gap-3">
-                <Button size="lg" onClick={() => setSelectedCategory('electronics')} className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg shadow-amber-500/25">
-                  Shop Now <ArrowRight className="ml-2 h-4 w-4" />
+
+              {/* Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.6 }}
+                className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white mb-5 leading-[1.1] tracking-tight"
+              >
+                Shop Smarter{' '}
+                <span className="gradient-text">with Zylora</span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="text-slate-300 text-base sm:text-lg lg:text-xl mb-8 max-w-lg leading-relaxed"
+              >
+                Premium shopping experience. Up to 70% off on electronics, fashion, home &amp; more.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55, duration: 0.5 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Button
+                  size="lg"
+                  onClick={() => setSelectedCategory(null)}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold shadow-lg shadow-blue-500/25 rounded-xl px-8 h-12 text-base"
+                >
+                  Shop Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                <Button size="lg" variant="outline" onClick={() => setSortBy('rating')} className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm">
-                  Top Rated <Star className="ml-2 h-4 w-4" />
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setSortBy('rating')}
+                  className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm rounded-xl px-8 h-12 text-base"
+                >
+                  Explore Deals
+                  <Star className="ml-2 h-4 w-4" />
                 </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Parallax-like floating stats card */}
+            <motion.div
+              initial={{ opacity: 0, x: 40, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.8, ease: 'easeOut' }}
+              className="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2"
+            >
+              <div className="glass rounded-2xl p-6 w-56 space-y-4 border-white/10">
+                <div className="text-center">
+                  <p className="text-3xl font-bold gradient-text">10K+</p>
+                  <p className="text-xs text-slate-400 mt-1">Products</p>
+                </div>
+                <div className="h-px bg-white/10" />
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-white">50K+</p>
+                  <p className="text-xs text-slate-400 mt-1">Happy Customers</p>
+                </div>
+                <div className="h-px bg-white/10" />
+                <div className="text-center">
+                  <p className="text-3xl font-bold text-blue-400">70%</p>
+                  <p className="text-xs text-slate-400 mt-1">Max Discount</p>
+                </div>
               </div>
             </motion.div>
           </div>
         </section>
       )}
 
-      {/* Trust Badges */}
-      {!searchQuery && !selectedCategory && (
-        <section className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 py-4">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {/* ═══════════════════════════════════════════════════════════
+          TRUST BADGES BAR
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && (
+        <section className="glass border-b border-border/40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
               {[
                 { icon: Truck, text: 'Free Delivery ₹499+' },
                 { icon: Shield, text: 'Secure Payments' },
                 { icon: Percent, text: 'Best Prices' },
                 { icon: RotateCcw, text: '7-Day Returns' },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm">
-                  <item.icon className="h-5 w-5 text-emerald-600 shrink-0" />
-                  <span className="text-muted-foreground">{item.text}</span>
-                </div>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 text-sm"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
+                    <item.icon className="h-4.5 w-4.5 text-blue-600" />
+                  </div>
+                  <span className="text-muted-foreground font-medium">{item.text}</span>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
       )}
 
-      {/* Categories */}
-      {!searchQuery && !selectedCategory && (
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-6">Shop by Category</h2>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+      {/* ═══════════════════════════════════════════════════════════
+          SHOP BY CATEGORY
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && categories.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8">
+              Shop by Category
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-4">
             {categories.map((cat, i) => (
-              <motion.button key={cat.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+              <motion.button
+                key={cat.id}
+                variants={staggerItem}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className="group flex flex-col items-center gap-2 p-3 sm:p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-border/30 hover:border-amber-300 hover:shadow-lg transition-all duration-300">
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
-                  <img src={cat.image} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" />
+                className="group glass flex flex-col items-center gap-2.5 p-3 sm:p-4 rounded-2xl border border-border/30 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300"
+              >
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                  />
                 </div>
-                <span className="text-xs sm:text-sm font-medium text-center group-hover:text-amber-600 transition-colors">{cat.icon} {cat.name}</span>
+                <span className="text-xs sm:text-sm font-medium text-center group-hover:text-blue-600 transition-colors">
+                  {cat.icon} {cat.name}
+                </span>
               </motion.button>
             ))}
           </div>
         </section>
       )}
 
-      {/* Flash Sale */}
-      {!searchQuery && !selectedCategory && saleProducts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 py-4">
-          <div className="bg-gradient-to-r from-red-500 via-orange-500 to-amber-500 rounded-2xl p-6 sm:p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2 text-white">
-                <Zap className="h-6 w-6" />
-                <h2 className="text-xl sm:text-2xl font-bold">Flash Sale</h2>
-                <Badge className="bg-white/20 text-white backdrop-blur-sm">Limited Time</Badge>
+      {/* ═══════════════════════════════════════════════════════════
+          FLASH SALE
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && saleProducts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-6 sm:p-8">
+            {/* Decorative orb */}
+            <div className="pointer-events-none absolute -top-20 -right-20 h-60 w-60 rounded-full bg-blue-400/20 blur-[80px]" />
+            <div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-blue-300/15 blur-[70px]" />
+
+            <div className="relative">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3 text-white">
+                  <Zap className="h-6 w-6" />
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold">Flash Sale</h2>
+                  <Badge className="bg-white/20 text-white backdrop-blur-sm border-white/10">
+                    Limited Time
+                  </Badge>
+                </div>
+                <Button
+                  variant="ghost"
+                  className="text-white hover:bg-white/15 rounded-xl"
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    useShopStore.getState().setSearchQuery('');
+                  }}
+                >
+                  View All <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
               </div>
-              <Button variant="ghost" className="text-white hover:bg-white/10" onClick={() => { setSelectedCategory(null); useShopStore.getState().setSearchQuery(''); }}>
-                View All <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {saleProducts.slice(0, 4).map((product) => (
-                <motion.button key={product.id} whileHover={{ scale: 1.02 }} onClick={() => navigateToProduct(product.id)}
-                  className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 hover:bg-white/20 transition-colors text-left text-white">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-white/20">
-                    <img src={product.images?.[0]} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-sm line-clamp-1">{product.name}</p>
-                    <div className="flex items-baseline gap-2 mt-1">
-                      <span className="font-bold">{formatINR(product.price)}</span>
-                      {product.originalPrice && <span className="text-sm line-through opacity-60">{formatINR(product.originalPrice)}</span>}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {saleProducts.slice(0, 4).map((product, i) => (
+                  <motion.button
+                    key={product.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.08 }}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => navigateToProduct(product.id)}
+                    className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-3 hover:bg-white/20 transition-colors text-left text-white border border-white/10"
+                  >
+                    <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-white/20">
+                      <img
+                        src={product.images?.[0]}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
                     </div>
-                    {product.originalPrice && <Badge className="mt-1 bg-white/20 text-white text-xs">{calculateDiscount(product.price, product.originalPrice)}% OFF</Badge>}
-                  </div>
-                </motion.button>
-              ))}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm line-clamp-1">{product.name}</p>
+                      <div className="flex items-baseline gap-2 mt-1">
+                        <span className="font-bold">{formatINR(product.price)}</span>
+                        {product.originalPrice && (
+                          <span className="text-sm line-through opacity-60">
+                            {formatINR(product.originalPrice)}
+                          </span>
+                        )}
+                      </div>
+                      {product.originalPrice && (
+                        <Badge className="mt-1 bg-white/20 text-white text-xs border-white/10">
+                          {calculateDiscount(product.price, product.originalPrice)}% OFF
+                        </Badge>
+                      )}
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Trending / Featured */}
-      {!searchQuery && !selectedCategory && featuredProducts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2"><TrendingUp className="h-5 w-5 text-amber-500" /><h2 className="text-xl sm:text-2xl font-bold">Trending Now</h2></div>
-          </div>
-          <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {featuredProducts.slice(0, 8).map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+      {/* ═══════════════════════════════════════════════════════════
+          TRENDING NOW
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && featuredProducts.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <motion.div variants={fadeInUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}>
+            <div className="flex items-center gap-2.5 mb-6 sm:mb-8">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
+                <TrendingUp className="h-4.5 w-4.5 text-blue-600" />
+              </div>
+              <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold">
+                Trending Now
+              </h2>
+            </div>
+          </motion.div>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-30px' }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
+            {featuredProducts.slice(0, 8).map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </motion.div>
         </section>
       )}
 
-      {/* New Arrivals */}
-      {!searchQuery && !selectedCategory && newArrivals.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-violet-500" /><h2 className="text-xl sm:text-2xl font-bold">New Arrivals</h2></div>
-          </div>
-          <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {newArrivals.slice(0, 4).map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+      {/* ═══════════════════════════════════════════════════════════
+          NEW ARRIVALS
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && newArrivals.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <motion.div variants={fadeInUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}>
+            <div className="flex items-center gap-2.5 mb-6 sm:mb-8">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10">
+                <Sparkles className="h-4.5 w-4.5 text-violet-500" />
+              </div>
+              <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold">
+                New Arrivals
+              </h2>
+            </div>
+          </motion.div>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-30px' }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
+            {newArrivals.slice(0, 4).map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </motion.div>
         </section>
       )}
 
-      {/* Top Rated */}
-      {!searchQuery && !selectedCategory && (
-        <section className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2"><Star className="h-5 w-5 text-amber-500 fill-amber-500" /><h2 className="text-xl sm:text-2xl font-bold">Top Rated</h2></div>
-          </div>
-          <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {topRated.slice(0, 8).map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+      {/* ═══════════════════════════════════════════════════════════
+          TOP RATED
+      ═══════════════════════════════════════════════════════════ */}
+      {showHero && topRated.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+          <motion.div variants={fadeInUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: '-50px' }}>
+            <div className="flex items-center gap-2.5 mb-6 sm:mb-8">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
+                <Star className="h-4.5 w-4.5 text-blue-600 fill-blue-600" />
+              </div>
+              <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold">
+                Top Rated
+              </h2>
+            </div>
+          </motion.div>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-30px' }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
+            {topRated.slice(0, 8).map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </motion.div>
         </section>
       )}
 
-      {/* All Products / Filtered */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      {/* ═══════════════════════════════════════════════════════════
+          ALL PRODUCTS / FILTERED SECTION
+      ═══════════════════════════════════════════════════════════ */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold">
-              {searchQuery ? `Results for "${searchQuery}"` : currentCategory ? currentCategory.name : 'All Products'}
+            <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold">
+              {searchQuery
+                ? `Results for "${searchQuery}"`
+                : currentCategory
+                  ? currentCategory.name
+                  : 'All Products'}
             </h2>
-            <p className="text-sm text-muted-foreground mt-1">{filteredProducts.length} products found</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''} found
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground hidden sm:inline">Sort:</span>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
-              className="text-sm border rounded-lg px-3 py-2 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-amber-500/20 focus:outline-none">
-              <option value="featured">Featured</option>
-              <option value="price-low">Price: Low → High</option>
-              <option value="price-high">Price: High → Low</option>
-              <option value="rating">Top Rated</option>
-              <option value="newest">Newest</option>
-            </select>
+
+          {/* Sort Dropdown */}
+          <div className="relative">
+            <Button
+              variant="outline"
+              onClick={() => setSortOpen(!sortOpen)}
+              className="flex items-center gap-2 rounded-xl px-4 focus:ring-2 focus:ring-blue-500/20"
+            >
+              <SlidersHorizontal className="h-4 w-4" />
+              <span className="text-sm">
+                {sortOptions.find((o) => o.value === sortBy)?.label || 'Featured'}
+              </span>
+              <ChevronDown
+                className={`h-3.5 w-3.5 transition-transform ${sortOpen ? 'rotate-180' : ''}`}
+              />
+            </Button>
+            <AnimatePresence>
+              {sortOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 top-full mt-2 z-50 min-w-[200px] rounded-xl bg-white dark:bg-slate-800 border border-border/50 shadow-xl overflow-hidden"
+                >
+                  {sortOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setSortBy(opt.value);
+                        setSortOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                        sortBy === opt.value
+                          ? 'bg-blue-500/10 text-blue-600 font-medium'
+                          : 'text-foreground hover:bg-slate-50 dark:hover:bg-slate-700/50'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
+
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🔍</div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-16 sm:py-20"
+          >
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-blue-500/10 mb-5">
+              <Search className="h-9 w-9 text-blue-500" />
+            </div>
             <h3 className="text-xl font-semibold mb-2">No products found</h3>
-            <p className="text-muted-foreground mb-4">Try adjusting your search or filter</p>
-            <Button variant="outline" onClick={() => { setSelectedCategory(null); useShopStore.getState().setSearchQuery(''); }}>Clear Filters</Button>
-          </div>
+            <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+              Try adjusting your search or browse a different category
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSelectedCategory(null);
+                useShopStore.getState().setSearchQuery('');
+              }}
+              className="rounded-xl border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-950"
+            >
+              Clear Filters
+            </Button>
+          </motion.div>
         ) : (
-          <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {filteredProducts.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
+            {filteredProducts.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
           </motion.div>
         )}
       </section>

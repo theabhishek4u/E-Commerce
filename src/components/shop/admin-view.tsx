@@ -36,13 +36,13 @@ export function AdminView() {
   useEffect(() => { if (adminTab === 'users') fetch('/api/admin/users').then((r) => r.json()).then((d) => setUsers(d.users || [])).catch(console.error); }, [adminTab]);
   useEffect(() => { if (adminTab === 'coupons') fetch('/api/admin/coupons').then((r) => r.json()).then(setCoupons).catch(console.error); }, [adminTab]);
 
-  if (!user || user.role !== 'admin') return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><p className="text-muted-foreground">Admin access required</p><Button className="mt-4 bg-amber-500 text-white" onClick={() => setCurrentView('auth')}>Login as Admin</Button></div>;
+  if (!user || user.role !== 'admin') return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><p className="text-muted-foreground">Admin access required</p><Button className="mt-4 bg-blue-600 text-white" onClick={() => setCurrentView('auth')}>Login as Admin</Button></div>;
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex items-center gap-3 mb-6">
         <Button variant="ghost" size="icon" onClick={() => setCurrentView('home')}><ArrowLeft className="h-5 w-5" /></Button>
-        <div><h1 className="text-2xl font-bold">Admin Panel</h1><p className="text-sm text-muted-foreground">Manage your store</p></div>
+        <div><h1 className="text-2xl font-bold font-heading">Admin Panel</h1><p className="text-sm text-muted-foreground">Manage your store</p></div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -52,7 +52,7 @@ export function AdminView() {
             <CardContent className="p-3">
               <nav className="space-y-1">
                 {ADMIN_TABS.map((t) => (<button key={t.key} onClick={() => setAdminTab(t.key)}
-                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${adminTab === t.key ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md' : 'hover:bg-slate-50 text-slate-600'}`}>
+                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${adminTab === t.key ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md' : 'hover:bg-slate-50 text-slate-600'}`}>
                   <t.icon className="h-4 w-4" />{t.label}
                 </button>))}
               </nav>
@@ -70,7 +70,7 @@ export function AdminView() {
                   { label: 'Revenue', value: formatINR(stats.revenue), icon: TrendingUp, gradient: 'from-emerald-500 to-teal-500' },
                   { label: 'Orders', value: stats.totalOrders.toString(), icon: ShoppingBag, gradient: 'from-blue-500 to-indigo-500' },
                   { label: 'Users', value: stats.totalUsers.toString(), icon: Users, gradient: 'from-violet-500 to-purple-500' },
-                  { label: 'Products', value: stats.totalProducts.toString(), icon: Package, gradient: 'from-amber-500 to-orange-500' },
+                  { label: 'Products', value: stats.totalProducts.toString(), icon: Package, gradient: 'from-blue-500 to-blue-600' },
                   { label: 'Pending', value: stats.pendingOrders.toString(), icon: ShoppingBag, gradient: 'from-red-500 to-rose-500' },
                   { label: 'Sales', value: stats.totalSales.toString(), icon: TrendingUp, gradient: 'from-cyan-500 to-blue-500' },
                 ].map((s, i) => (
@@ -99,7 +99,7 @@ export function AdminView() {
                 <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
                   <CardHeader><CardTitle className="text-lg">Top Products</CardTitle></CardHeader>
                   <CardContent>
-                    <div className="space-y-3">{stats.topProducts.map((p, i) => (<div key={i} className="flex items-center justify-between py-2 border-b last:border-0"><div className="flex items-center gap-3"><span className="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">{i + 1}</span><span className="font-medium text-sm">{p.name}</span></div><div className="text-sm"><span className="text-muted-foreground">{p.sold} sold</span><span className="ml-3 font-semibold">{formatINR(p.revenue)}</span></div></div>))}</div>
+                    <div className="space-y-3">{stats.topProducts.map((p, i) => (<div key={i} className="flex items-center justify-between py-2 border-b last:border-0"><div className="flex items-center gap-3"><span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-bold">{i + 1}</span><span className="font-medium text-sm">{p.name}</span></div><div className="text-sm"><span className="text-muted-foreground">{p.sold} sold</span><span className="ml-3 font-semibold">{formatINR(p.revenue)}</span></div></div>))}</div>
                   </CardContent>
                 </Card>
               )}
@@ -111,7 +111,7 @@ export function AdminView() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-bold">Products ({products.length})</h2>
-                <Button className="bg-gradient-to-r from-amber-500 to-orange-500 text-white" onClick={() => toast.info('Add product form coming soon!')}><Plus className="h-4 w-4 mr-1" />Add Product</Button>
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white" onClick={() => toast.info('Add product form coming soon!')}><Plus className="h-4 w-4 mr-1" />Add Product</Button>
               </div>
               <div className="grid gap-3">
                 {products.map((p) => (
@@ -125,7 +125,7 @@ export function AdminView() {
                       <div className="text-right shrink-0">
                         <p className="font-bold">{formatINR(p.price)}</p>
                         <div className="flex gap-1 mt-1">
-                          {p.featured && <Badge className="text-xs bg-amber-100 text-amber-700">Featured</Badge>}
+                          {p.featured && <Badge className="text-xs bg-blue-100 text-blue-700">Featured</Badge>}
                           {p.onSale && <Badge className="text-xs bg-red-100 text-red-700">Sale</Badge>}
                         </div>
                       </div>
@@ -149,7 +149,7 @@ export function AdminView() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead><tr className="border-b bg-slate-50"><th className="text-left p-3 font-medium">Order</th><th className="text-left p-3 font-medium">Customer</th><th className="text-left p-3 font-medium">Amount</th><th className="text-left p-3 font-medium">Payment</th><th className="text-left p-3 font-medium">Status</th><th className="text-left p-3 font-medium">Action</th></tr></thead>
-                      <tbody>{orders.map((o) => (<tr key={o.id} className="border-b last:border-0 hover:bg-slate-50"><td className="p-3 font-medium">{o.orderNumber}<br /><span className="text-xs text-muted-foreground">{new Date(o.createdAt).toLocaleDateString('en-IN')}</span></td><td className="p-3">{o.customerName}<br /><span className="text-xs text-muted-foreground">{o.email}</span></td><td className="p-3 font-semibold">{formatINR(o.totalAmount)}</td><td className="p-3"><Badge variant="secondary" className="text-xs">{o.paymentStatus}</Badge></td><td className="p-3"><Badge className={`text-xs ${o.status === 'delivered' ? 'bg-emerald-50 text-emerald-700' : o.status === 'cancelled' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'}`}>{o.status}</Badge></td>
+                      <tbody>{orders.map((o) => (<tr key={o.id} className="border-b last:border-0 hover:bg-slate-50"><td className="p-3 font-medium">{o.orderNumber}<br /><span className="text-xs text-muted-foreground">{new Date(o.createdAt).toLocaleDateString('en-IN')}</span></td><td className="p-3">{o.customerName}<br /><span className="text-xs text-muted-foreground">{o.email}</span></td><td className="p-3 font-semibold">{formatINR(o.totalAmount)}</td><td className="p-3"><Badge variant="secondary" className="text-xs">{o.paymentStatus}</Badge></td><td className="p-3"><Badge className={`text-xs ${o.status === 'delivered' ? 'bg-emerald-50 text-emerald-700' : o.status === 'cancelled' ? 'bg-red-50 text-red-700' : 'bg-blue-50 text-blue-700'}`}>{o.status}</Badge></td>
                         <td className="p-3"><select className="text-xs border rounded px-2 py-1" value={o.status} onChange={async (e) => { await fetch('/api/admin/orders', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: o.id, status: e.target.value }) }); setOrders(orders.map((x) => x.id === o.id ? { ...x, status: e.target.value } : x)); toast.success('Status updated'); }}>
                           {['pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled'].map((s) => <option key={s} value={s}>{s}</option>)}
                         </select></td></tr>))}</tbody>

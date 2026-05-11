@@ -40,9 +40,9 @@ export function CartView() {
   if (cartItems.length === 0) return (
     <div className="max-w-7xl mx-auto px-4 py-16 text-center">
       <ShoppingBag className="h-24 w-24 mx-auto text-muted-foreground/20 mb-6" />
-      <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
+      <h2 className="text-2xl font-bold font-heading mb-2">Your cart is empty</h2>
       <p className="text-muted-foreground mb-6">Start shopping to find amazing deals!</p>
-      <Button size="lg" className="bg-gradient-to-r from-amber-500 to-orange-500 text-white" onClick={() => setCurrentView('home')}><ShoppingCart className="mr-2 h-5 w-5" />Start Shopping</Button>
+      <Button size="lg" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white" onClick={() => setCurrentView('home')}><ShoppingCart className="mr-2 h-5 w-5" />Start Shopping</Button>
     </div>
   );
 
@@ -50,7 +50,7 @@ export function CartView() {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex items-center gap-3 mb-6">
         <Button variant="ghost" size="icon" onClick={() => setCurrentView('home')}><ArrowLeft className="h-5 w-5" /></Button>
-        <div><h1 className="text-2xl font-bold">Shopping Cart</h1><p className="text-sm text-muted-foreground">{cartItems.length} items</p></div>
+        <div><h1 className="text-2xl font-bold font-heading">Shopping Cart</h1><p className="text-sm text-muted-foreground">{cartItems.length} items</p></div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-3">
@@ -103,7 +103,7 @@ export function CartView() {
                 ) : (
                   <div className="flex gap-2">
                     <Input placeholder="Coupon code" value={couponInput} onChange={(e) => setCouponInput(e.target.value.toUpperCase())} className="text-sm h-9" />
-                    <Button size="sm" onClick={handleApplyCoupon} disabled={couponLoading} className="bg-amber-500 hover:bg-amber-600 text-white">Apply</Button>
+                    <Button size="sm" onClick={handleApplyCoupon} disabled={couponLoading} className="bg-blue-600 hover:bg-blue-700 text-white">Apply</Button>
                   </div>
                 )}
               </div>
@@ -112,9 +112,9 @@ export function CartView() {
               {couponDiscount > 0 && <div className="flex justify-between text-sm"><span className="text-emerald-600">Coupon ({appliedCoupon})</span><span className="text-emerald-600">−{formatINR(couponDiscount)}</span></div>}
               <div className="flex justify-between text-sm"><span className="text-muted-foreground">Delivery</span><span className={deliveryCharge === 0 ? 'text-emerald-600 font-medium' : ''}>{deliveryCharge === 0 ? 'FREE' : formatINR(deliveryCharge)}</span></div>
               <Separator />
-              <div className="flex justify-between font-bold text-lg"><span>Total</span><span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">{formatINR(grandTotal)}</span></div>
+              <div className="flex justify-between font-bold text-lg"><span>Total</span><span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{formatINR(grandTotal)}</span></div>
               {(totalSavings > 0 || couponDiscount > 0) && <p className="text-xs text-emerald-600 font-medium text-center bg-emerald-50 rounded-lg p-2">🎉 You save {formatINR(totalSavings + couponDiscount)}!</p>}
-              <Button size="lg" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold h-12 shadow-lg shadow-amber-500/20" onClick={() => setCurrentView('checkout')}>Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              <Button size="lg" className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold h-12 shadow-lg shadow-blue-500/20" onClick={() => setCurrentView('checkout')}>Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" /></Button>
               <Button variant="outline" className="w-full" onClick={() => setCurrentView('home')}>Continue Shopping</Button>
             </CardContent>
           </Card>

@@ -58,22 +58,22 @@ export function CheckoutView() {
     { value: 'cod', label: 'Cash on Delivery', desc: 'Pay on delivery', icon: Banknote, color: 'text-emerald-600' },
   ];
 
-  if (cartItems.length === 0) return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><CheckCircle2 className="h-24 w-24 mx-auto text-emerald-500 mb-6" /><h2 className="text-2xl font-bold mb-2">No items to checkout</h2><Button className="bg-amber-500 text-white mt-4" onClick={() => setCurrentView('home')}>Go Shopping</Button></div>;
+  if (cartItems.length === 0) return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><CheckCircle2 className="h-24 w-24 mx-auto text-emerald-500 mb-6" /><h2 className="text-2xl font-bold mb-2">No items to checkout</h2><Button className="bg-blue-600 text-white mt-4" onClick={() => setCurrentView('home')}>Go Shopping</Button></div>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
       <div className="flex items-center gap-3 mb-6">
         <Button variant="ghost" size="icon" onClick={() => setCurrentView('cart')}><ArrowLeft className="h-5 w-5" /></Button>
-        <h1 className="text-2xl font-bold">Checkout</h1>
+        <h1 className="text-2xl font-bold font-heading">Checkout</h1>
       </div>
 
       {/* Steps */}
       <div className="flex items-center gap-2 mb-8">
         {[{ n: 1, t: 'Address' }, { n: 2, t: 'Payment' }, { n: 3, t: 'Confirm' }].map((s, i) => (
           <div key={s.n} className="flex items-center gap-2 flex-1">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step >= s.n ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md' : 'bg-slate-200 text-slate-500'}`}>{s.n}</div>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${step >= s.n ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md' : 'bg-slate-200 text-slate-500'}`}>{s.n}</div>
             <span className={`text-sm font-medium hidden sm:inline ${step >= s.n ? 'text-foreground' : 'text-muted-foreground'}`}>{s.t}</span>
-            {i < 2 && <div className={`flex-1 h-0.5 rounded ${step > s.n ? 'bg-amber-500' : 'bg-slate-200'}`} />}
+            {i < 2 && <div className={`flex-1 h-0.5 rounded ${step > s.n ? 'bg-blue-600' : 'bg-slate-200'}`} />}
           </div>
         ))}
       </div>
@@ -82,7 +82,7 @@ export function CheckoutView() {
       {step === 1 && (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
-            <CardHeader><CardTitle className="text-lg flex items-center gap-2"><Building className="h-5 w-5 text-amber-500" />Delivery Address</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-lg flex items-center gap-2"><Building className="h-5 w-5 text-blue-600" />Delivery Address</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1"><Label>Full Name *</Label><Input value={form.customerName} onChange={(e) => setForm({ ...form, customerName: e.target.value })} className={errors.customerName ? 'border-red-400' : ''} />{errors.customerName && <p className="text-xs text-red-500">{errors.customerName}</p>}</div>
@@ -95,7 +95,7 @@ export function CheckoutView() {
                 <div className="space-y-1"><Label>State *</Label><select value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} className={`w-full h-9 rounded-md border px-3 text-sm bg-background ${errors.state ? 'border-red-400' : 'border-input'}`}><option value="">Select</option>{INDIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}</select>{errors.state && <p className="text-xs text-red-500">{errors.state}</p>}</div>
                 <div className="space-y-1"><Label>PIN Code *</Label><Input maxLength={6} value={form.pincode} onChange={(e) => setForm({ ...form, pincode: e.target.value.replace(/\D/g, '') })} className={errors.pincode ? 'border-red-400' : ''} />{errors.pincode && <p className="text-xs text-red-500">{errors.pincode}</p>}</div>
               </div>
-              <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white h-11" onClick={() => { if (validate()) setStep(2); }}>Continue to Payment</Button>
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white h-11" onClick={() => { if (validate()) setStep(2); }}>Continue to Payment</Button>
             </CardContent>
           </Card>
         </motion.div>
@@ -105,11 +105,11 @@ export function CheckoutView() {
       {step === 2 && (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
-            <CardHeader><CardTitle className="text-lg flex items-center gap-2"><CreditCard className="h-5 w-5 text-amber-500" />Payment Method</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="text-lg flex items-center gap-2"><CreditCard className="h-5 w-5 text-blue-600" />Payment Method</CardTitle></CardHeader>
             <CardContent>
               <RadioGroup value={form.paymentMethod} onValueChange={(v) => setForm({ ...form, paymentMethod: v })} className="space-y-3">
                 {PAYMENT_OPTIONS.map((opt) => (
-                  <div key={opt.value} className="flex items-center space-x-3 border rounded-xl p-4 cursor-pointer hover:bg-slate-50 transition-colors has-[data-state=checked]:border-amber-400 has-[data-state=checked]:bg-amber-50/50">
+                  <div key={opt.value} className="flex items-center space-x-3 border rounded-xl p-4 cursor-pointer hover:bg-slate-50 transition-colors has-[data-state=checked]:border-blue-500 has-[data-state=checked]:bg-blue-50/50">
                     <RadioGroupItem value={opt.value} id={opt.value} />
                     <Label htmlFor={opt.value} className="flex items-center gap-3 cursor-pointer flex-1">
                       <opt.icon className={`h-5 w-5 ${opt.color}`} />
@@ -121,7 +121,7 @@ export function CheckoutView() {
               </RadioGroup>
               <div className="flex gap-3 mt-6">
                 <Button variant="outline" className="flex-1" onClick={() => setStep(1)}>Back</Button>
-                <Button className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white h-11" onClick={() => setStep(3)}>Review Order</Button>
+                <Button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white h-11" onClick={() => setStep(3)}>Review Order</Button>
               </div>
             </CardContent>
           </Card>
@@ -144,12 +144,12 @@ export function CheckoutView() {
                 ))}
               </div>
               <Separator />
-              <div className="flex justify-between font-bold text-lg"><span>Total</span><span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">{formatINR(grandTotal)}</span></div>
+              <div className="flex justify-between font-bold text-lg"><span>Total</span><span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{formatINR(grandTotal)}</span></div>
             </CardContent>
           </Card>
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1" onClick={() => setStep(2)}>Back</Button>
-            <Button className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white h-12 font-semibold shadow-lg shadow-amber-500/20" onClick={handleSubmit} disabled={isProcessing}>
+            <Button className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white h-12 font-semibold shadow-lg shadow-blue-500/20" onClick={handleSubmit} disabled={isProcessing}>
               {isProcessing ? <div className="flex items-center gap-2"><div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />Processing...</div> : `Place Order · ${formatINR(grandTotal)}`}
             </Button>
           </div>

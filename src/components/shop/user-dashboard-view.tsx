@@ -20,7 +20,7 @@ export function UserDashboardView() {
     if (user?.email) fetch(`/api/orders?email=${encodeURIComponent(user.email)}`).then((r) => r.json()).then(setOrders).catch(console.error);
   }, [user]);
 
-  if (!user) return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><p>Please login first</p><Button className="mt-4 bg-amber-500 text-white" onClick={() => setCurrentView('auth')}>Login</Button></div>;
+  if (!user) return <div className="max-w-7xl mx-auto px-4 py-16 text-center"><p>Please login first</p><Button className="mt-4 bg-blue-600 text-white" onClick={() => setCurrentView('auth')}>Login</Button></div>;
 
   const tabs = [{ key: 'overview', label: 'Overview', icon: User }, { key: 'orders', label: 'Orders', icon: Package }, { key: 'wishlist', label: 'Wishlist', icon: Heart }, { key: 'addresses', label: 'Addresses', icon: MapPin }];
 
@@ -28,7 +28,7 @@ export function UserDashboardView() {
     <div className="max-w-7xl mx-auto px-4 py-6">
       <div className="flex items-center gap-3 mb-6">
         <Button variant="ghost" size="icon" onClick={() => setCurrentView('home')}><ArrowLeft className="h-5 w-5" /></Button>
-        <h1 className="text-2xl font-bold">My Dashboard</h1>
+        <h1 className="text-2xl font-bold font-heading">My Dashboard</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -37,12 +37,12 @@ export function UserDashboardView() {
           <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-lg font-bold">{user.name?.charAt(0).toUpperCase()}</div>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-lg font-bold">{user.name?.charAt(0).toUpperCase()}</div>
                 <div><p className="font-semibold">{user.name}</p><p className="text-xs text-muted-foreground">{user.email}</p><Badge className="mt-1 text-xs">{user.role}</Badge></div>
               </div>
               <nav className="space-y-1">
                 {tabs.map((t) => (<button key={t.key} onClick={() => { if (t.key === 'wishlist') setCurrentView('wishlist'); else setTab(t.key); }}
-                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t.key ? 'bg-amber-50 text-amber-700' : 'hover:bg-slate-50 text-slate-600'}`}>
+                  className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${tab === t.key ? 'bg-blue-50 text-blue-700' : 'hover:bg-slate-50 text-slate-600'}`}>
                   <t.icon className="h-4 w-4" />{t.label}
                 </button>))}
               </nav>
@@ -58,7 +58,7 @@ export function UserDashboardView() {
                 {[
                   { label: 'Orders', value: orders.length, color: 'from-blue-500 to-blue-600' },
                   { label: 'Wishlist', value: useShopStore.getState().wishlistIds.length, color: 'from-red-500 to-red-600' },
-                  { label: 'Total Spent', value: formatINR(orders.reduce((s, o) => s + o.totalAmount, 0)), color: 'from-amber-500 to-orange-500' },
+                  { label: 'Total Spent', value: formatINR(orders.reduce((s, o) => s + o.totalAmount, 0)), color: 'from-blue-600 to-blue-700' },
                 ].map((stat, i) => (
                   <motion.div key={i} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
                     <Card className="border-border/30 bg-white/80 backdrop-blur-sm overflow-hidden">

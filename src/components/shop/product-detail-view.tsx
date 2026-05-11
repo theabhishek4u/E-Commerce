@@ -84,7 +84,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
             <div className="flex gap-3 overflow-x-auto pb-2">
               {product.images.map((img, idx) => (
                 <button key={idx} onClick={() => setSelectedImage(idx)}
-                  className={`w-20 h-20 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${selectedImage === idx ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-border hover:border-amber-300'}`}>
+                  className={`w-20 h-20 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${selectedImage === idx ? 'border-blue-600 ring-2 ring-blue-600/20' : 'border-border hover:border-blue-400'}`}>
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
@@ -95,9 +95,9 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
         {/* Info */}
         <div className="space-y-5">
           <div>
-            {product.brand && <p className="text-sm text-amber-600 font-semibold uppercase tracking-wider mb-1">{product.brand}</p>}
+            {product.brand && <p className="text-sm text-blue-700 font-semibold uppercase tracking-wider mb-1">{product.brand}</p>}
             {category && <Badge variant="secondary" className="mb-2">{category.name}</Badge>}
-            <h1 className="text-2xl sm:text-3xl font-bold leading-tight">{product.name}</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold font-heading leading-tight">{product.name}</h1>
           </div>
 
           <div className="flex items-center gap-3">
@@ -105,7 +105,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
             <span className="text-sm text-muted-foreground">{product.reviewCount.toLocaleString('en-IN')} ratings & {reviews.length} reviews</span>
           </div>
 
-          <div className="bg-gradient-to-r from-slate-50 to-amber-50/50 rounded-xl p-4 space-y-2 border border-amber-100/50">
+          <div className="bg-gradient-to-r from-slate-50 to-blue-50/50 rounded-xl p-4 space-y-2 border border-blue-100/50">
             <div className="flex items-baseline gap-3">
               <span className="text-3xl font-bold">{formatINR(product.price)}</span>
               {product.originalPrice && product.originalPrice > product.price && (<><span className="text-lg text-muted-foreground line-through">{formatINR(product.originalPrice)}</span><Badge className="bg-emerald-500 text-white font-semibold">{discount}% OFF</Badge></>)}
@@ -116,7 +116,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
           <div>
             {product.stock > 10 ? <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 border"><Check className="h-3 w-3 mr-1" />In Stock</Badge>
-              : product.stock > 0 ? <Badge className="bg-amber-50 text-amber-700 border-amber-200 border">Only {product.stock} left!</Badge>
+              : product.stock > 0 ? <Badge className="bg-blue-50 text-blue-700 border-blue-200 border">Only {product.stock} left!</Badge>
               : <Badge variant="destructive">Out of Stock</Badge>}
           </div>
 
@@ -132,10 +132,10 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
           )}
 
           <div className="flex gap-3">
-            <Button size="lg" className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold h-12 shadow-lg shadow-amber-500/20" onClick={handleAddToCart} disabled={product.stock === 0}>
+            <Button size="lg" className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold h-12 shadow-lg shadow-blue-500/20" onClick={handleAddToCart} disabled={product.stock === 0}>
               <ShoppingCart className="h-5 w-5 mr-2" />Add to Cart
             </Button>
-            <Button size="lg" className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-semibold h-12" onClick={() => { handleAddToCart(); setCurrentView('cart'); }} disabled={product.stock === 0}>
+            <Button size="lg" className="flex-1 bg-blue-800 hover:bg-blue-900 text-white font-semibold h-12" onClick={() => { handleAddToCart(); setCurrentView('cart'); }} disabled={product.stock === 0}>
               Buy Now
             </Button>
             <Button size="lg" variant="outline" className="h-12 shrink-0" onClick={() => { toggleWishlist(product.id); toast.success(inWishlist ? 'Removed from wishlist' : 'Added to wishlist ❤️'); }}>
@@ -153,7 +153,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
           <Separator />
           <div>
-            <h3 className="font-semibold text-lg mb-3">Description</h3>
+            <h3 className="font-semibold text-lg font-heading mb-3">Description</h3>
             <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{product.description}</p>
           </div>
 
@@ -161,7 +161,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
           <Separator />
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-lg flex items-center gap-2"><MessageSquare className="h-5 w-5" />Reviews ({reviews.length})</h3>
+              <h3 className="font-semibold text-lg font-heading flex items-center gap-2"><MessageSquare className="h-5 w-5" />Reviews ({reviews.length})</h3>
             </div>
             {reviews.length === 0 ? <p className="text-sm text-muted-foreground">No reviews yet.</p> : (
               <div className="space-y-4 max-h-96 overflow-y-auto">
@@ -169,10 +169,10 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
                   <div key={review.id} className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-xs font-bold">{review.userName?.charAt(0)}</div>
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-xs font-bold">{review.userName?.charAt(0)}</div>
                         <div><p className="text-sm font-medium">{review.userName}</p>{review.verified && <p className="text-xs text-emerald-600">✓ Verified Purchase</p>}</div>
                       </div>
-                      <div className="flex items-center gap-0.5">{[...Array(5)].map((_, i) => <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? 'fill-amber-400 text-amber-400' : 'text-gray-200'}`} />)}</div>
+                      <div className="flex items-center gap-0.5">{[...Array(5)].map((_, i) => <Star key={i} className={`h-3.5 w-3.5 ${i < review.rating ? 'fill-blue-500 text-blue-500' : 'text-gray-200'}`} />)}</div>
                     </div>
                     {review.title && <p className="font-semibold text-sm mb-1">{review.title}</p>}
                     <p className="text-sm text-muted-foreground">{review.comment}</p>
@@ -187,7 +187,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
       {/* Related */}
       {relatedProducts.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xl font-bold mb-6">Related Products</h2>
+          <h2 className="text-xl font-bold font-heading mb-6">Related Products</h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">{relatedProducts.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}</div>
         </section>
       )}

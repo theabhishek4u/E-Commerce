@@ -27,7 +27,7 @@ export function OrderDetailView() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
-      <div className="flex items-center gap-3 mb-6"><Button variant="ghost" size="icon" onClick={() => setCurrentView('orders')}><ArrowLeft className="h-5 w-5" /></Button><div><h1 className="text-2xl font-bold">Order Details</h1><p className="text-sm text-muted-foreground">{order.orderNumber}</p></div></div>
+      <div className="flex items-center gap-3 mb-6"><Button variant="ghost" size="icon" onClick={() => setCurrentView('orders')}><ArrowLeft className="h-5 w-5" /></Button><div><h1 className="text-2xl font-bold font-heading">Order Details</h1><p className="text-sm text-muted-foreground">{order.orderNumber}</p></div></div>
 
       <Card className="mb-6 border-border/30 bg-white/80 backdrop-blur-sm">
         <CardHeader><CardTitle className="text-lg">Order Status</CardTitle></CardHeader>
@@ -41,14 +41,14 @@ export function OrderDetailView() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-2"><CardTitle className="text-lg flex items-center gap-2"><MapPin className="h-5 w-5 text-amber-500" />Address</CardTitle></CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-lg flex items-center gap-2"><MapPin className="h-5 w-5 text-blue-600" />Address</CardTitle></CardHeader>
           <CardContent><p className="font-medium">{order.customerName}</p><p className="text-sm text-muted-foreground">{order.address}, {order.city}, {order.state} - {order.pincode}</p><p className="text-sm text-muted-foreground">📞 {order.phone}</p></CardContent>
         </Card>
         <Card className="border-border/30 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="pb-2"><CardTitle className="text-lg flex items-center gap-2"><CreditCard className="h-5 w-5 text-amber-500" />Payment</CardTitle></CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-lg flex items-center gap-2"><CreditCard className="h-5 w-5 text-blue-600" />Payment</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             <div className="flex justify-between text-sm"><span className="text-muted-foreground">Method</span><span className="font-medium">{PAYMENT_LABELS[order.paymentMethod] || order.paymentMethod}</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Total</span><span className="font-bold text-amber-600 text-lg">{formatINR(order.totalAmount)}</span></div>
+            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Total</span><span className="font-bold text-blue-700 text-lg">{formatINR(order.totalAmount)}</span></div>
           </CardContent>
         </Card>
       </div>
@@ -57,7 +57,7 @@ export function OrderDetailView() {
         <CardHeader className="pb-2"><CardTitle className="text-lg">Items ({order.items.length})</CardTitle></CardHeader>
         <CardContent className="space-y-4">
           {order.items.map((item) => (<div key={item.id} className="flex items-center gap-4"><div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-slate-50"><img src={item.productImage} alt={item.productName} className="w-full h-full object-cover" /></div><div className="flex-1 min-w-0"><p className="font-medium line-clamp-1">{item.productName}</p><p className="text-sm text-muted-foreground">{formatINR(item.price)} × {item.quantity}</p></div><p className="font-semibold">{formatINR(item.price * item.quantity)}</p></div>))}
-          <Separator /><div className="flex justify-between font-bold text-lg"><span>Total</span><span className="text-amber-600">{formatINR(order.totalAmount)}</span></div>
+          <Separator /><div className="flex justify-between font-bold text-lg"><span>Total</span><span className="text-blue-700">{formatINR(order.totalAmount)}</span></div>
         </CardContent>
       </Card>
       <div className="mt-6 text-center"><Button variant="outline" onClick={() => setCurrentView('home')}>Continue Shopping</Button></div>

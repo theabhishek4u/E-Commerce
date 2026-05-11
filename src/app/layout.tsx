@@ -1,21 +1,39 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
-  title: "Z Shop - India's Premium Online Store",
-  description: "Shop the best deals in India. Electronics, Fashion, Home & Kitchen, Books, Beauty and more. Free delivery on orders above ₹499.",
-  keywords: ["Z Shop", "online shopping", "India", "electronics", "fashion", "deals", "INR"],
+  title: "Zylora – The Future of Online Shopping",
+  description:
+    "Shop smarter with Zylora. Premium electronics, fashion, home essentials and more. Free delivery on orders above ₹499. Discover more with Zylora.",
+  keywords: [
+    "Zylora",
+    "online shopping",
+    "premium",
+    "electronics",
+    "fashion",
+    "deals",
+    "INR",
+    "India",
+  ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
+      <body
+        className={`${inter.variable} ${poppins.variable} antialiased bg-background text-foreground font-sans`}
+      >
         {children}
         <Toaster position="bottom-right" richColors />
       </body>

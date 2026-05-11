@@ -39,7 +39,7 @@ export function AuthView() {
         if (!res.ok) { toast.error(data.error); setLoading(false); return; }
         await signIn('credentials', { email: form.email, password: form.password, redirect: false });
         setUser({ id: data.id, name: data.name, email: data.email, role: data.role });
-        toast.success('Account created! Welcome to Z Shop 🎉');
+        toast.success('Account created! Welcome to Zylora 🎉');
         setCurrentView('home');
       } catch { toast.error('Registration failed'); }
     }
@@ -61,11 +61,12 @@ export function AuthView() {
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl p-2"><Zap className="h-6 w-6 text-white" /></div>
-            <span className="text-2xl font-bold">Z <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Shop</span></span>
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-2"><Zap className="h-6 w-6 text-white" /></div>
+            <span className="text-2xl font-bold font-heading"><span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">Zylora</span></span>
           </div>
-          <h1 className="text-2xl font-bold">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
-          <p className="text-muted-foreground text-sm mt-1">{isLogin ? 'Sign in to your account' : 'Join Z Shop today'}</p>
+          <h1 className="text-2xl font-bold font-heading">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
+          <p className="text-muted-foreground text-sm mt-1">{isLogin ? 'Sign in to your account' : 'Join Zylora today'}</p>
+          <p className="text-xs text-muted-foreground mt-2 italic">The Future of Online Shopping</p>
         </div>
 
         <Card className="border-border/30 bg-white/80 backdrop-blur-xl shadow-xl">
@@ -89,13 +90,13 @@ export function AuthView() {
                   <button type="button" className="absolute right-3 top-2.5 text-muted-foreground hover:text-foreground" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>
                 </div>
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold h-11 shadow-lg shadow-amber-500/20" disabled={loading}>
+              <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold h-11 shadow-lg shadow-blue-500/20" disabled={loading}>
                 {loading ? <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" /> : <>{isLogin ? 'Sign In' : 'Create Account'}<ArrowRight className="ml-2 h-4 w-4" /></>}
               </Button>
             </form>
 
             <div className="mt-4 text-center">
-              <button className="text-sm text-amber-600 hover:underline" onClick={() => setIsLogin(!isLogin)}>
+              <button className="text-sm text-blue-700 hover:underline" onClick={() => setIsLogin(!isLogin)}>
                 {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
               </button>
             </div>

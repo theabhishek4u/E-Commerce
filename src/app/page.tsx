@@ -56,7 +56,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50/80 to-white">
       <Header />
       <main className="flex-1">{renderView()}</main>
       <Footer />
@@ -64,7 +64,7 @@ function AppContent() {
   );
 }
 
-export default function ZShopPage() {
+export default function ZyloraPage() {
   return (
     <SessionProvider>
       <AppContent />

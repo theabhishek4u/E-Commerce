@@ -38,15 +38,15 @@ export function WishlistView() {
   if (wishlistProducts.length === 0) return (
     <div className="max-w-7xl mx-auto px-4 py-16 text-center">
       <Heart className="h-24 w-24 mx-auto text-muted-foreground/20 mb-6" />
-      <h2 className="text-2xl font-bold mb-2">Your wishlist is empty</h2>
+      <h2 className="text-2xl font-bold font-heading mb-2">Your wishlist is empty</h2>
       <p className="text-muted-foreground mb-6">Save items you love for later!</p>
-      <Button className="bg-gradient-to-r from-amber-500 to-orange-500 text-white" onClick={() => setCurrentView('home')}>Browse Products</Button>
+      <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white" onClick={() => setCurrentView('home')}>Browse Products</Button>
     </div>
   );
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6">
-      <div className="flex items-center gap-3 mb-6"><Button variant="ghost" size="icon" onClick={() => setCurrentView('home')}><ArrowLeft className="h-5 w-5" /></Button><h1 className="text-2xl font-bold">My Wishlist</h1></div>
+      <div className="flex items-center gap-3 mb-6"><Button variant="ghost" size="icon" onClick={() => setCurrentView('home')}><ArrowLeft className="h-5 w-5" /></Button><h1 className="text-2xl font-bold font-heading">My Wishlist</h1></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <AnimatePresence>
           {wishlistProducts.map((product, i) => (
@@ -59,7 +59,7 @@ export function WishlistView() {
                   <h3 className="font-semibold text-sm line-clamp-2 mb-2">{product.name}</h3>
                   <div className="flex items-baseline gap-2 mb-3"><span className="font-bold">{formatINR(product.price)}</span>{product.originalPrice && <span className="text-xs text-muted-foreground line-through">{formatINR(product.originalPrice)}</span>}</div>
                   <div className="flex gap-2">
-                    <Button size="sm" className="flex-1 bg-amber-500 hover:bg-amber-600 text-white" onClick={() => handleAddToCart(product)}><ShoppingCart className="h-3 w-3 mr-1" />Add to Cart</Button>
+                    <Button size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => handleAddToCart(product)}><ShoppingCart className="h-3 w-3 mr-1" />Add to Cart</Button>
                     <Button size="sm" variant="outline" className="text-red-500 hover:bg-red-50" onClick={() => handleRemove(product.id)}><Trash2 className="h-3 w-3" /></Button>
                   </div>
                 </CardContent>
