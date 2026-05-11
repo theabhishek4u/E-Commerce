@@ -20,7 +20,7 @@ export function ProductDetailView() {
 
 function ProductDetailInner({ selectedProductId, products, categories, setCurrentView, addToCart, toggleWishlist, isInWishlist }: {
   selectedProductId: string | null; products: ProductType[]; categories: { id: string; name: string; slug: string }[];
-  setCurrentView: (v: string) => void; addToCart: (item: CartItemType) => void; toggleWishlist: (id: string) => void; isInWishlist: (id: string) => boolean;
+  setCurrentView: (v: string | import('@/lib/types').ViewType) => void; addToCart: (item: CartItemType) => void; toggleWishlist: (id: string) => void; isInWishlist: (id: string) => boolean;
 }) {
   const foundProduct = useMemo(() => products.find((p) => p.id === selectedProductId) || null, [products, selectedProductId]);
   const [fetchedProduct, setFetchedProduct] = useState<ProductType | null>(null);

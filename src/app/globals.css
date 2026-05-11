@@ -883,6 +883,54 @@
   animation: gradientBorderRotate 3s linear infinite;
 }
 
+/* ============================================
+   HOME-VIEW SPECIFIC ANIMATION CLASSES
+   ============================================ */
+
+/* gradient-shift - animated background gradient for hero */
+.gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* float-orb - floating decorative orbs */
+.float-orb {
+  animation: float 6s ease-in-out infinite;
+}
+
+.float-orb-delay {
+  animation: float 7s ease-in-out 1s infinite;
+}
+
+.float-orb-slow {
+  animation: float 9s ease-in-out 2s infinite;
+}
+
+/* marquee-scroll - horizontal scrolling text */
+.marquee-scroll {
+  animation: marquee 25s linear infinite;
+}
+
+/* pulse-glow - pulsing glow effect on icons */
+.pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* count-shimmer - animated counter text shimmer */
+.count-shimmer {
+  background: linear-gradient(90deg, #ffffff 0%, #93c5fd 50%, #ffffff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: countShimmer 3s ease-in-out infinite;
+}
+
+@keyframes countShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
 /* Stagger delay utilities for sequential animations */
 .stagger-1 { animation-delay: 0.05s; }
 .stagger-2 { animation-delay: 0.1s; }

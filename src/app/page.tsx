@@ -26,8 +26,8 @@ const viewVariants = {
 };
 
 const viewTransition = {
-  type: 'tween',
-  ease: 'easeInOut',
+  type: 'tween' as const,
+  ease: 'easeInOut' as const,
   duration: 0.25,
 };
 
