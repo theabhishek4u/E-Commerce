@@ -120,7 +120,7 @@ export function Header() {
       </div>
 
       {/* ── Main Navbar ── */}
-      <div className={`glass-strong transition-all duration-300 ${scrolled ? 'shadow-lg shadow-black/[0.04]' : 'shadow-sm'}`}>
+      <div className={`glass-strong transition-all duration-300`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-3 h-16">
             {/* Mobile Hamburger */}
@@ -135,7 +135,7 @@ export function Header() {
                 {/* Mobile Menu Header */}
                 <div className="p-5 border-b border-border/50">
                   <div className="flex items-center gap-3">
-                    <div className="relative h-9 w-9 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-brand">
+                    <div className="relative h-9 w-9 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
                       <Image src="/zylora-logo.png" alt="Zylora" fill className="object-contain p-1" />
                     </div>
                     <div>
@@ -149,7 +149,7 @@ export function Header() {
                 {currentUser && (
                   <div className="p-4 border-b border-border/50 bg-blue-50/50 dark:bg-blue-950/20">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm shadow-brand">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-sm">
                         {currentUser.name?.charAt(0).toUpperCase()}
                       </div>
                       <div className="min-w-0">
@@ -167,7 +167,7 @@ export function Header() {
                     onClick={() => { setSelectedCategory(null); setCurrentView('home'); setMobileMenuOpen(false); }}
                     className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all flex items-center gap-3 ${
                       !selectedCategory
-                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-brand'
+                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
                         : 'hover:bg-blue-50 dark:hover:bg-blue-950/30 text-foreground'
                     }`}
                   >
@@ -179,7 +179,7 @@ export function Header() {
                       onClick={() => { setSelectedCategory(cat.slug); setCurrentView('home'); setMobileMenuOpen(false); }}
                       className={`w-full text-left px-4 py-3 rounded-xl font-medium transition-all flex items-center gap-3 ${
                         selectedCategory === cat.slug
-                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-brand'
+                          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
                           : 'hover:bg-blue-50 dark:hover:bg-blue-950/30 text-foreground'
                       }`}
                     >
@@ -242,7 +242,7 @@ export function Header() {
                   ) : (
                     <Button
                       onClick={() => { setCurrentView('auth'); setMobileMenuOpen(false); }}
-                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-brand"
+                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                     >
                       <LogIn className="h-4 w-4 mr-2" /> Sign In
                     </Button>
@@ -258,7 +258,7 @@ export function Header() {
               whileTap={{ scale: 0.97 }}
               whileHover={{ scale: 1.02 }}
             >
-              <div className="relative h-9 w-9 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-brand group-hover:shadow-brand-lg transition-shadow duration-300">
+              <div className="relative h-9 w-9 rounded-xl overflow-hidden bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center transition-shadow duration-300">
                 <Image src="/zylora-logo.png" alt="Zylora" fill className="object-contain p-1.5" />
               </div>
               <span className="font-heading text-xl font-bold tracking-tight hidden sm:inline">
@@ -275,7 +275,7 @@ export function Header() {
               >
                 <div className={`relative flex w-full rounded-xl transition-all duration-300 ${
                   searchFocused
-                    ? 'ring-2 ring-blue-500/40 shadow-lg shadow-blue-500/10'
+                    ? 'ring-2 ring-blue-500/40'
                     : 'ring-1 ring-slate-200 dark:ring-slate-700'
                 }`}>
                   <Search className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors duration-200 ${
@@ -333,7 +333,7 @@ export function Header() {
                     animate={{ scale: 1 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 15 }}
                   >
-                    <Badge className="absolute -top-1 -right-1 h-4.5 w-4.5 flex items-center justify-center p-0 bg-blue-500 text-white text-[10px] font-bold shadow-sm min-w-[18px]">
+                    <Badge className="absolute -top-1 -right-1 h-4.5 w-4.5 flex items-center justify-center p-0 bg-blue-500 text-white text-[10px] font-bold min-w-[18px]">
                       {wishlistIds.length}
                     </Badge>
                   </motion.div>
@@ -357,7 +357,7 @@ export function Header() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.96 }}
                       transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      className="absolute right-0 top-full mt-2 w-80 glass-strong rounded-xl shadow-xl border border-white/20 dark:border-white/10 overflow-hidden z-50"
+                      className="absolute right-0 top-full mt-2 w-80 glass-strong rounded-xl border border-white/20 dark:border-white/10 overflow-hidden z-50"
                     >
                       <div className="p-4 border-b border-border/50">
                         <h3 className="font-heading font-semibold text-sm">Notifications</h3>
@@ -388,7 +388,7 @@ export function Header() {
                     animate={{ scale: 1 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 15 }}
                   >
-                    <Badge className="absolute -top-1 -right-1 h-5 min-w-[20px] flex items-center justify-center p-0 bg-blue-500 text-white text-xs font-bold shadow-sm">
+                    <Badge className="absolute -top-1 -right-1 h-5 min-w-[20px] flex items-center justify-center p-0 bg-blue-500 text-white text-xs font-bold">
                       {cartCount > 99 ? '99+' : cartCount}
                     </Badge>
                   </motion.div>
@@ -404,7 +404,7 @@ export function Header() {
                     className="gap-1.5 shrink-0 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors"
                     onClick={() => setShowUserMenu(!showUserMenu)}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white text-xs font-bold shadow-brand">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white text-xs font-bold">
                       {currentUser.name?.charAt(0).toUpperCase()}
                     </div>
                     <ChevronDown className={`h-3 w-3 text-slate-500 transition-transform duration-200 hidden sm:inline ${showUserMenu ? 'rotate-180' : ''}`} />
@@ -430,12 +430,12 @@ export function Header() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.96 }}
                       transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                      className="absolute right-0 top-full mt-2 w-64 glass-strong rounded-xl shadow-xl border border-white/20 dark:border-white/10 overflow-hidden z-50"
+                      className="absolute right-0 top-full mt-2 w-64 glass-strong rounded-xl border border-white/20 dark:border-white/10 overflow-hidden z-50"
                     >
                       {/* User Info Header */}
                       <div className="p-4 border-b border-border/50 bg-gradient-to-r from-blue-600/5 to-blue-700/5 dark:from-blue-600/10 dark:to-blue-700/10">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold shadow-brand">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold">
                             {currentUser.name?.charAt(0).toUpperCase()}
                           </div>
                           <div className="min-w-0">
@@ -552,7 +552,7 @@ export function Header() {
               onClick={() => { setSelectedCategory(null); if (currentView !== 'home') setCurrentView('home'); }}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 !selectedCategory
-                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
                   : 'text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:text-blue-600'
               }`}
               whileTap={{ scale: 0.95 }}
@@ -565,7 +565,7 @@ export function Header() {
                 onClick={() => { setSelectedCategory(cat.slug); if (currentView !== 'home') setCurrentView('home'); }}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
                   selectedCategory === cat.slug
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
                     : 'text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:text-blue-600'
                 }`}
                 whileTap={{ scale: 0.95 }}

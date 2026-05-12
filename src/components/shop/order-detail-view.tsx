@@ -108,8 +108,8 @@ export function OrderDetailView() {
                       transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 + idx * 0.1 }}
                       className={`
                         w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300
-                        ${isCompleted ? 'bg-gradient-to-br from-blue-500 to-emerald-500 text-white shadow-md shadow-emerald-500/25' : ''}
-                        ${isCurrent ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' : ''}
+                        ${isCompleted ? 'bg-gradient-to-br from-blue-500 to-emerald-500 text-white ' : ''}
+                        ${isCurrent ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white ' : ''}
                         ${!isActive ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500' : ''}
                       `}
                     >
@@ -183,7 +183,7 @@ export function OrderDetailView() {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground text-xs sm:text-sm">Total</span>
-                <div className="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-sm sm:text-base shadow-md shadow-blue-500/20">
+                <div className="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-sm sm:text-base ">
                   {formatINR(order.totalAmount)}
                 </div>
               </div>
@@ -211,7 +211,7 @@ export function OrderDetailView() {
                 transition={{ delay: 0.5 + idx * 0.08 }}
                 className="flex items-center gap-3 sm:gap-4"
               >
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-100 shadow-sm">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-100">
                   <img src={item.productImage} alt={item.productName} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -225,7 +225,7 @@ export function OrderDetailView() {
           <Separator className="my-4" />
           <div className="flex justify-between items-center">
             <span className="font-bold text-base sm:text-lg">Total</span>
-            <div className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-base sm:text-lg shadow-md shadow-blue-500/20">
+            <div className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-base sm:text-lg ">
               {formatINR(order.totalAmount)}
             </div>
           </div>
@@ -240,7 +240,7 @@ export function OrderDetailView() {
         className="mt-4 sm:mt-6 text-center"
       >
         <Button
-          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5 px-8"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm  transition-all duration-300 hover:-translate-y-0.5 px-8"
           onClick={() => setCurrentView('home')}
         >
           Continue Shopping

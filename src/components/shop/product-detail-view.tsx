@@ -98,7 +98,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
         {/* ── Image Gallery ── */}
         <div className="space-y-3 sm:space-y-4">
           <motion.div
-            className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/60 cursor-crosshair relative shadow-sm"
+            className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/60 cursor-crosshair relative"
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsZooming(true)}
             onMouseLeave={() => setIsZooming(false)}
@@ -114,7 +114,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
             {/* Discount badge overlay */}
             {discount > 0 && (
               <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                <Badge className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-xs sm:text-sm px-2.5 py-1 shadow-lg shadow-emerald-500/30">
+                <Badge className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-xs sm:text-sm px-2.5 py-1">
                   {discount}% OFF
                 </Badge>
               </div>
@@ -126,8 +126,8 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
                 <button key={idx} onClick={() => setSelectedImage(idx)}
                   className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 transition-all duration-300 ${
                     selectedImage === idx
-                      ? 'ring-2 ring-blue-500 ring-offset-2 shadow-lg shadow-blue-500/20 scale-[1.05]'
-                      : 'border border-slate-200 hover:border-blue-300 hover:shadow-md'
+                      ? 'ring-2 ring-blue-500 ring-offset-2 scale-[1.05]'
+                      : 'border border-slate-200 hover:border-blue-300'
                   }`}>
                   <img src={img} alt="" className="w-full h-full object-cover" />
                   {selectedImage === idx && (
@@ -154,7 +154,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
           {/* Rating Badge */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-2.5 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-bold shadow-md shadow-emerald-500/20">
+            <div className="flex items-center gap-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-2.5 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-bold">
               {product.rating} <Star className="h-3 w-3 fill-white" />
             </div>
             <span className="text-xs sm:text-sm text-muted-foreground font-medium">
@@ -163,13 +163,13 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
           </div>
 
           {/* ── Price Card ── */}
-          <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/40 rounded-2xl p-4 sm:p-5 space-y-2 sm:space-y-2.5 border border-blue-100/60 shadow-sm">
+          <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/40 rounded-2xl p-4 sm:p-5 space-y-2 sm:space-y-2.5 border border-blue-100/60">
             <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
               <span className="text-3xl sm:text-4xl font-extrabold tracking-tight">{formatINR(product.price)}</span>
               {product.originalPrice && product.originalPrice > product.price && (
                 <>
                   <span className="text-base sm:text-lg text-muted-foreground line-through decoration-red-400/60">{formatINR(product.originalPrice)}</span>
-                  <Badge className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-xs px-2 py-0.5 shadow-sm">
+                  <Badge className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-xs px-2 py-0.5">
                     {discount}% OFF
                   </Badge>
                 </>
@@ -221,10 +221,10 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
           {/* ── Desktop Action Buttons ── */}
           <div className="hidden sm:flex gap-3">
-            <Button size="lg" className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold h-13 text-base shadow-xl shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]" onClick={handleAddToCart} disabled={product.stock === 0}>
+            <Button size="lg" className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold h-13 text-base transition-all hover:scale-[1.02] active:scale-[0.98]" onClick={handleAddToCart} disabled={product.stock === 0}>
               <ShoppingCart className="h-5 w-5 mr-2" />Add to Cart
             </Button>
-            <Button size="lg" className="flex-1 bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-slate-900 text-white font-bold h-13 text-base shadow-xl shadow-blue-800/20 transition-all hover:shadow-blue-800/35 hover:scale-[1.02] active:scale-[0.98]" onClick={() => { handleAddToCart(); setCurrentView('cart'); }} disabled={product.stock === 0}>
+            <Button size="lg" className="flex-1 bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-slate-900 text-white font-bold h-13 text-base transition-all hover:scale-[1.02] active:scale-[0.98]" onClick={() => { handleAddToCart(); setCurrentView('cart'); }} disabled={product.stock === 0}>
               <Zap className="h-5 w-5 mr-2" />Buy Now
             </Button>
             <motion.div whileTap={{ scale: 0.85 }} animate={wishlistAnimating ? { scale: [1, 1.3, 1] } : { scale: 1 }} transition={{ duration: 0.3 }}>
@@ -289,10 +289,10 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
             ) : (
               <div className="space-y-3 sm:space-y-4 max-h-80 sm:max-h-96 overflow-y-auto pr-1">
                 {reviews.map((review) => (
-                  <div key={review.id} className="p-3.5 sm:p-4 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                  <div key={review.id} className="p-3.5 sm:p-4 bg-white rounded-2xl border border-slate-100 transition-colors">
                     <div className="flex items-center justify-between mb-2.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs sm:text-sm font-bold">
                           {review.userName?.charAt(0)?.toUpperCase()}
                         </div>
                         <div>
@@ -339,7 +339,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
           MOBILE STICKY BOTTOM CTA
       ═══════════════════════════════════════════════════════════ */}
       {product.stock > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/50 shadow-[0_-8px_30px_rgba(0,0,0,0.1)] safe-area-bottom">
+        <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/50 safe-area-bottom">
           <div className="px-4 py-3 flex items-center gap-3">
             {/* Quantity - pill shape */}
             <div className="flex items-center bg-slate-100 rounded-full border border-slate-200/60">
@@ -373,7 +373,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
             {/* Add to Cart */}
             <Button
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold h-11 px-4 shadow-lg shadow-blue-500/25 shrink-0 rounded-xl"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold h-11 px-4 shrink-0 rounded-xl"
               onClick={handleAddToCart}
             >
               <ShoppingCart className="h-4 w-4" />
@@ -382,7 +382,7 @@ function ProductDetailInner({ selectedProductId, products, categories, setCurren
 
             {/* Buy Now */}
             <Button
-              className="bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-slate-900 text-white font-bold h-11 px-4 shadow-lg shadow-blue-800/20 shrink-0 rounded-xl"
+              className="bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-slate-900 text-white font-bold h-11 px-4 shrink-0 rounded-xl"
               onClick={() => { handleAddToCart(); setCurrentView('cart'); }}
             >
               <Zap className="h-4 w-4" />

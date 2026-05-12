@@ -47,7 +47,7 @@ export function OrderSuccessView() {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ type: 'spring', stiffness: 150, damping: 12, delay: 0.1 }}
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500 via-emerald-400 to-blue-600 p-[3px] shadow-lg shadow-blue-500/25"
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-blue-500 via-emerald-400 to-blue-600 p-[3px] "
           >
             <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
               <motion.div
@@ -141,7 +141,7 @@ export function OrderSuccessView() {
                     transition={{ delay: 0.8 + idx * 0.08 }}
                     className="flex items-center gap-3 sm:gap-4"
                   >
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-100 shadow-sm">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-100">
                       <img src={item.productImage} alt={item.productName} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -155,7 +155,7 @@ export function OrderSuccessView() {
               <Separator className="my-4" />
               <div className="flex justify-between items-center">
                 <span className="font-bold text-base sm:text-lg">Total</span>
-                <div className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-base sm:text-lg shadow-md shadow-blue-500/20">
+                <div className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-base sm:text-lg ">
                   {formatINR(order.totalAmount)}
                 </div>
               </div>
@@ -172,7 +172,7 @@ export function OrderSuccessView() {
         className="flex flex-wrap gap-3 justify-center"
       >
         <Button
-          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm sm:text-base shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-0.5 px-6"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-sm sm:text-base transition-all duration-300 hover:-translate-y-0.5 px-6"
           onClick={goHome}
         >
           <ShoppingBag className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />

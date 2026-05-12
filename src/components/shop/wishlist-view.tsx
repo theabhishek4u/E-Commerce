@@ -4,7 +4,6 @@ import { useShopStore } from '@/store/shop-store';
 import { formatINR, calculateDiscount } from '@/lib/format';
 import { Heart, ShoppingCart, ArrowLeft, Trash2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ProductType, CartItemType } from '@/lib/types';
 import { toast } from 'sonner';
@@ -60,17 +59,11 @@ export function WishlistView() {
               </defs>
             </svg>
           </motion.div>
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0, 0.3] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)' }}
-          />
         </div>
         <h2 className="text-2xl sm:text-3xl font-bold font-heading mb-2 sm:mb-3">Your wishlist is empty</h2>
         <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-xs mx-auto">Save items you love for later! Browse our collection and tap the heart icon.</p>
         <Button
-          className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-700 text-white font-bold px-8 h-12 shadow-xl shadow-blue-500/25 transition-all hover:shadow-blue-500/40 hover:scale-[1.03] active:scale-[0.98]"
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold px-8 h-12 transition-all hover:scale-[1.03] active:scale-[0.98]"
           onClick={() => setCurrentView('home')}
         >
           <Sparkles className="h-4 w-4 mr-2" /> Browse Products
@@ -87,17 +80,17 @@ export function WishlistView() {
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center shadow-md shadow-blue-500/20">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
             <Heart className="h-4 w-4 text-white fill-white" />
           </div>
           <h1 className="text-xl sm:text-2xl font-bold font-heading">My Wishlist</h1>
         </div>
-        <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold ml-auto sm:ml-2 px-2.5 shadow-sm">
+        <Badge className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold ml-auto sm:ml-2 px-2.5">
           {wishlistProducts.length}
         </Badge>
       </div>
 
-      {/* ── Wishlist Grid ── */}
+      {/* ── Wishlist Grid - Clean Minimal Design ── */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
         <AnimatePresence mode="popLayout">
           {wishlistProducts.map((product, i) => {
@@ -111,54 +104,70 @@ export function WishlistView() {
                 exit={{ opacity: 0, scale: 0.85, y: -10 }}
                 transition={{ duration: 0.4, delay: i * 0.06, ease: 'easeOut' }}
               >
-                <Card className="overflow-hidden border-slate-200/60 bg-white/90 backdrop-blur-sm group hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 hover:border-slate-300/60">
-                  {/* Image */}
-                  <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 cursor-pointer" onClick={() => useShopStore.getState().navigateToProduct(product.id)}>
+                <div
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200/60 bg-white transition-all duration-300 hover:border-blue-200/80"
+                  onClick={() => useShopStore.getState().navigateToProduct(product.id)}
+                >
+                  {/* Clean Image - No overlays */}
+                  <div className="relative aspect-square overflow-hidden bg-slate-50">
                     <img
                       src={product.images?.[0]}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
-                    {/* Gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Remove button - Glassmorphism */}
+                    {/* Remove button - Always visible, subtle */}
                     <motion.button
                       whileTap={{ scale: 0.85 }}
                       onClick={(e) => { e.stopPropagation(); handleRemove(product.id); }}
-                      className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full bg-white/70 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/50 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:bg-red-50 hover:border-red-200"
+                      className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center border border-slate-200/50 transition-all duration-200 hover:bg-red-50 hover:border-red-200"
                     >
-                      <Trash2 className="h-3.5 w-3.5 text-red-500" />
+                      <Trash2 className="h-3 w-3 text-slate-400 group-hover:text-red-500 transition-colors" />
                     </motion.button>
 
-                    {/* Discount badge */}
-                    {discount > 0 && (
-                      <div className="absolute top-2.5 left-2.5">
-                        <Badge className="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold text-[10px] px-1.5 py-0.5 shadow-md shadow-emerald-500/20">
-                          {discount}% OFF
-                        </Badge>
+                    {/* Out of Stock Overlay */}
+                    {product.stock === 0 && (
+                      <div className="absolute inset-0 bg-white/60 backdrop-blur-[3px] flex items-center justify-center">
+                        <span className="text-xs font-bold text-slate-600 uppercase tracking-wider bg-white/90 px-3 py-1.5 rounded-full border border-slate-200">Out of Stock</span>
                       </div>
                     )}
                   </div>
 
-                  <CardContent className="p-3 sm:p-4">
-                    <h3 className="font-semibold text-xs sm:text-sm line-clamp-2 mb-1 sm:mb-1.5 leading-snug min-h-[2rem] sm:min-h-[2.5rem]">{product.name}</h3>
-                    <div className="flex items-baseline gap-1.5 sm:gap-2 mb-3 sm:mb-3.5">
-                      <span className="font-extrabold text-sm sm:text-base">{formatINR(product.price)}</span>
-                      {product.originalPrice && (
-                        <span className="text-[10px] sm:text-xs text-muted-foreground line-through">{formatINR(product.originalPrice)}</span>
+                  {/* Content - Clean & Minimal */}
+                  <div className="p-3 sm:p-4 space-y-2">
+                    {/* Brand */}
+                    {product.brand && (
+                      <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-blue-500">{product.brand}</p>
+                    )}
+
+                    {/* Name */}
+                    <h3 className="font-semibold text-xs sm:text-sm line-clamp-2 leading-snug min-h-[2rem] sm:min-h-[2.5rem] text-slate-800 group-hover:text-blue-600 transition-colors duration-200">
+                      {product.name}
+                    </h3>
+
+                    {/* Price - Clean layout */}
+                    <div className="flex items-baseline gap-1.5 sm:gap-2">
+                      <span className="font-extrabold text-sm sm:text-base text-slate-900">{formatINR(product.price)}</span>
+                      {product.originalPrice && product.originalPrice > product.price && (
+                        <>
+                          <span className="text-[10px] sm:text-xs text-muted-foreground line-through">{formatINR(product.originalPrice)}</span>
+                          <span className="text-[9px] sm:text-[10px] font-bold text-emerald-600">{discount}% off</span>
+                        </>
                       )}
                     </div>
+
+                    {/* Add to Cart Button - Clean */}
                     <Button
                       size="sm"
-                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white h-9 sm:h-10 text-xs sm:text-sm font-bold shadow-md shadow-blue-500/15 transition-all hover:shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] rounded-xl"
-                      onClick={() => handleAddToCart(product)}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white h-9 sm:h-10 text-xs sm:text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] rounded-xl"
+                      onClick={(e) => { e.stopPropagation(); handleAddToCart(product); }}
+                      disabled={product.stock === 0}
                     >
                       <ShoppingCart className="h-3.5 w-3.5 sm:mr-1.5" />
                       <span className="sm:inline">Add to Cart</span>
                     </Button>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </motion.div>
             );
           })}

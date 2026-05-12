@@ -52,7 +52,7 @@ export function AdminView() {
             <CardContent className="p-3">
               <nav className="space-y-1">
                 {ADMIN_TABS.map((t) => (<button key={t.key} onClick={() => setAdminTab(t.key)}
-                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${adminTab === t.key ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md' : 'hover:bg-slate-50 text-slate-600'}`}>
+                  className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${adminTab === t.key ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' : 'hover:bg-slate-50 text-slate-600'}`}>
                   <t.icon className="h-4 w-4" />{t.label}
                 </button>))}
               </nav>
@@ -72,7 +72,7 @@ export function AdminView() {
                   onClick={() => setAdminTab(t.key)}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all whitespace-nowrap shrink-0 ${
                     isActive
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
                       : 'bg-white text-slate-600 border border-slate-200'
                   }`}
                 >

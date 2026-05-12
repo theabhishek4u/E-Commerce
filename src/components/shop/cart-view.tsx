@@ -42,7 +42,7 @@ export function CartView() {
       <motion.div
         animate={{ y: [0, -12, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="mx-auto mb-6 sm:mb-8 w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br from-blue-100 via-blue-50 to-sky-100 flex items-center justify-center shadow-lg shadow-blue-100/50"
+        className="mx-auto mb-6 sm:mb-8 w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br from-blue-100 via-blue-50 to-sky-100 flex items-center justify-center"
       >
         <ShoppingBag className="h-12 w-12 sm:h-16 sm:w-16 text-blue-500" strokeWidth={1.5} />
       </motion.div>
@@ -50,7 +50,7 @@ export function CartView() {
       <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-xs mx-auto">Looks like you haven&apos;t added anything yet. Start shopping to find amazing deals!</p>
       <Button
         size="lg"
-        className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold h-12 px-8 shadow-xl shadow-blue-500/25 transition-all duration-300 hover:shadow-blue-500/40 hover:scale-[1.02]"
+        className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold h-12 px-8 transition-all duration-300 hover:scale-[1.02]"
         onClick={() => setCurrentView('home')}
       >
         <Sparkles className="mr-2 h-5 w-5" />
@@ -78,7 +78,7 @@ export function CartView() {
               const disc = calculateDiscount(item.price, item.originalPrice);
               return (
                 <motion.div key={item.id} layout initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20, height: 0 }}>
-                  <div className="group relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                  <div className="group relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl transition-all duration-300 overflow-hidden">
                     {/* Subtle gradient shimmer on hover */}
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-50/0 via-blue-50/40 to-blue-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     <div className="relative p-3 sm:p-5">
@@ -122,7 +122,7 @@ export function CartView() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 p-0"
+                                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-200 p-0"
                                 onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)}
                               >
                                 <Minus className="h-3 w-3" />
@@ -131,7 +131,7 @@ export function CartView() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md transition-all duration-200 p-0"
+                                className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transition-all duration-200 p-0"
                                 onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)}
                                 disabled={item.quantity >= item.stock}
                               >
@@ -163,7 +163,7 @@ export function CartView() {
         {/* Desktop Order Summary */}
         <div className="hidden lg:block">
           <div className="sticky top-36">
-            <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-lg overflow-hidden">
+            <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl overflow-hidden">
               {/* Gradient Top Border */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500" />
 
@@ -192,7 +192,7 @@ export function CartView() {
                         size="sm"
                         onClick={handleApplyCoupon}
                         disabled={couponLoading}
-                        className="bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl h-10 px-4 shadow-sm hover:shadow-md transition-all"
+                        className="bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl h-10 px-4 transition-all"
                       >
                         Apply
                       </Button>
@@ -242,7 +242,7 @@ export function CartView() {
                 {/* Checkout Button */}
                 <Button
                   size="lg"
-                  className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold h-12 rounded-xl shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 hover:scale-[1.01]"
+                  className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold h-12 rounded-xl transition-all duration-300 hover:scale-[1.01]"
                   onClick={() => setCurrentView('checkout')}
                 >
                   Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" />
@@ -261,7 +261,7 @@ export function CartView() {
       </div>
 
       {/* Mobile Sticky Bottom - Cart Summary */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white/80 backdrop-blur-2xl border-t border-white/30 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] safe-area-bottom">
+      <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white/80 backdrop-blur-2xl border-t border-white/30 safe-area-bottom">
         <div className="px-4 py-3">
           {/* Savings Badge */}
           {(totalSavings > 0 || couponDiscount > 0) && (
@@ -279,7 +279,7 @@ export function CartView() {
               </div>
             </div>
             <Button
-              className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold h-12 px-6 rounded-xl shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300"
+              className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white font-bold h-12 px-6 rounded-xl transition-all duration-300"
               onClick={() => setCurrentView('checkout')}
             >
               Checkout <ArrowRight className="ml-1.5 h-4 w-4" />

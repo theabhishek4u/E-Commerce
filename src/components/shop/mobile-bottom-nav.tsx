@@ -139,7 +139,7 @@ export function MobileBottomNav() {
         >
           <div className="relative">
             {/* Premium Glass Container */}
-            <div className="relative bg-gradient-to-b from-white/90 via-white/85 to-blue-50/80 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-slate-800/85 backdrop-blur-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.12)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.4)]">
+            <div className="relative bg-gradient-to-b from-white/90 via-white/85 to-blue-50/80 dark:from-slate-900/95 dark:via-slate-900/90 dark:to-slate-800/85 backdrop-blur-2xl">
               {/* Gradient top border */}
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-300/60 dark:via-blue-500/30 to-transparent" />
 
@@ -200,14 +200,8 @@ export function MobileBottomNav() {
                         {item.isSpecial ? (
                           // Premium elevated search pill button
                           <motion.div
-                            className="relative flex items-center justify-center w-12 h-12 -mt-2 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 ring-2 ring-white/50 shadow-[0_4px_20px_rgba(59,130,246,0.45)] dark:ring-white/20"
-                            animate={!isActive ? {
-                              boxShadow: [
-                                '0 4px 20px rgba(59,130,246,0.35)',
-                                '0 4px 28px rgba(59,130,246,0.55)',
-                                '0 4px 20px rgba(59,130,246,0.35)',
-                              ],
-                            } : {}}
+                            className="relative flex items-center justify-center w-12 h-12 -mt-2 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 ring-2 ring-white/50 dark:ring-white/20"
+                            animate={{}}
                             transition={{
                               duration: 2.5,
                               repeat: Infinity,
@@ -233,7 +227,7 @@ export function MobileBottomNav() {
                             <Icon
                               className={`h-5 w-5 transition-all duration-200 ${
                                 isActive
-                                  ? 'text-blue-600 dark:text-blue-400 drop-shadow-[0_0_6px_rgba(59,130,246,0.5)]'
+                                  ? 'text-blue-600 dark:text-blue-400'
                                   : 'text-slate-400/70 dark:text-slate-500/70 group-active:text-blue-600'
                               }`}
                             />
@@ -249,7 +243,7 @@ export function MobileBottomNav() {
                             transition={{ type: 'spring', stiffness: 500, damping: 12 }}
                             className="absolute -top-1.5 -right-2.5"
                           >
-                            <Badge className="h-4 min-w-[16px] flex items-center justify-center p-0 bg-gradient-to-r from-red-500 to-red-600 text-white text-[9px] font-bold shadow-[0_2px_8px_rgba(239,68,68,0.5)] border-0 px-1">
+                            <Badge className="h-4 min-w-[16px] flex items-center justify-center p-0 bg-gradient-to-r from-red-500 to-red-600 text-white text-[9px] font-bold border-0 px-1">
                               {item.badge > 99 ? '99+' : item.badge}
                             </Badge>
                           </motion.div>

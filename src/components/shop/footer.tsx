@@ -128,7 +128,7 @@ export function Footer() {
               className="sm:col-span-2 lg:col-span-1"
             >
               <div className="flex items-center gap-2.5 mb-5">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-2 shadow-lg shadow-blue-500/20">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl p-2">
                   <Zap className="h-5 w-5 text-white" />
                 </div>
                 <span className="text-2xl font-bold text-white tracking-tight">

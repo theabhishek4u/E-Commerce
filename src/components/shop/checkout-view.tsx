@@ -71,7 +71,7 @@ export function CheckoutView() {
       </motion.div>
       <h2 className="text-2xl sm:text-3xl font-bold font-heading mb-2">No items to checkout</h2>
       <p className="text-sm text-muted-foreground mb-6">Your cart seems empty. Add some items first!</p>
-      <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold h-11 px-6 shadow-lg shadow-blue-500/20" onClick={() => setCurrentView('home')}>Go Shopping</Button>
+      <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold h-11 px-6 " onClick={() => setCurrentView('home')}>Go Shopping</Button>
     </div>
   );
 
@@ -94,9 +94,9 @@ export function CheckoutView() {
                 <motion.div
                   className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 relative ${
                     isCompleted
-                      ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30'
+                      ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white '
                       : isActive
-                        ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30'
+                        ? 'bg-gradient-to-br from-blue-600 to-blue-700 text-white '
                         : 'bg-slate-100 text-slate-400'
                   }`}
                   animate={isActive ? { scale: [1, 1.05, 1] } : isCompleted ? { scale: [1, 1.15, 1] } : {}}
@@ -134,7 +134,7 @@ export function CheckoutView() {
       {/* Step 1: Address */}
       {step === 1 && (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
-          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-lg overflow-hidden">
+          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl overflow-hidden">
             {/* Gradient Top Accent */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500" />
 
@@ -232,7 +232,7 @@ export function CheckoutView() {
                 </div>
 
                 <Button
-                  className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-12 rounded-xl font-semibold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 transition-all duration-300 mt-2"
+                  className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-12 rounded-xl font-semibold transition-all duration-300 mt-2"
                   onClick={() => { if (validate()) setStep(2); }}
                 >
                   Continue to Payment <ChevronRight className="ml-1 h-4 w-4" />
@@ -246,7 +246,7 @@ export function CheckoutView() {
       {/* Step 2: Payment */}
       {step === 2 && (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
-          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-lg overflow-hidden">
+          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl overflow-hidden">
             {/* Gradient Top Accent */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500" />
 
@@ -264,7 +264,7 @@ export function CheckoutView() {
                       key={opt.value}
                       className={`relative flex items-center gap-3 sm:gap-4 rounded-xl p-3 sm:p-4 cursor-pointer transition-all duration-300 overflow-hidden border ${
                         isSelected
-                          ? 'border-blue-400/60 bg-blue-50/40 shadow-md shadow-blue-500/10'
+                          ? 'border-blue-400/60 bg-blue-50/40 '
                           : 'border-slate-200/60 bg-white/60 hover:bg-slate-50/80 hover:border-slate-300/60'
                       }`}
                     >
@@ -302,7 +302,7 @@ export function CheckoutView() {
               <div className="flex gap-3 mt-5 sm:mt-6">
                 <Button variant="outline" className="flex-1 h-11 text-sm rounded-xl" onClick={() => setStep(1)}>Back</Button>
                 <Button
-                  className="flex-1 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-11 text-sm font-semibold rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 transition-all duration-300"
+                  className="flex-1 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-11 text-sm font-semibold rounded-xl transition-all duration-300"
                   onClick={() => setStep(3)}
                 >
                   Review Order <ChevronRight className="ml-1 h-4 w-4" />
@@ -317,7 +317,7 @@ export function CheckoutView() {
       {step === 3 && (
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }} className="space-y-4">
           {/* Order Review Card */}
-          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl shadow-lg overflow-hidden">
+          <div className="relative rounded-2xl border border-white/40 bg-white/60 backdrop-blur-xl overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-sky-500" />
 
             <div className="p-4 sm:p-6">
@@ -383,7 +383,7 @@ export function CheckoutView() {
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1 h-11 text-sm rounded-xl" onClick={() => setStep(2)}>Back</Button>
             <Button
-              className="flex-1 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-12 sm:h-13 font-bold shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 text-sm rounded-xl transition-all duration-300 hover:scale-[1.01]"
+              className="flex-1 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:from-blue-700 hover:via-blue-800 hover:to-blue-900 text-white h-12 sm:h-13 font-bold  text-sm rounded-xl transition-all duration-300 hover:scale-[1.01]"
               onClick={handleSubmit}
               disabled={isProcessing}
             >

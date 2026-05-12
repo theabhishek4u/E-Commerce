@@ -325,7 +325,7 @@ export function HomeView() {
                   <Button
                     size="lg"
                     onClick={() => setSelectedCategory(null)}
-                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold shadow-lg shadow-blue-500/30 rounded-xl px-7 sm:px-9 h-12 sm:h-13 text-sm sm:text-base group"
+                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold rounded-xl px-7 sm:px-9 h-12 sm:h-13 text-sm sm:text-base group"
                   >
                     Shop Now
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -376,7 +376,7 @@ export function HomeView() {
                     whileHover={{ y: -6 }}
                     transition={{ type: 'spring', stiffness: 200, damping: 20 }}
                     onClick={() => navigateToProduct(heroFeaturedProduct.id)}
-                    className="cursor-pointer relative w-72 xl:w-80 rounded-3xl overflow-hidden border border-white/15 shadow-2xl shadow-blue-900/30 group"
+                    className="cursor-pointer relative w-72 xl:w-80 rounded-3xl overflow-hidden border border-white/15 group"
                   >
                     {/* Product image */}
                     <div className="relative h-64 xl:h-72 overflow-hidden">
@@ -389,7 +389,7 @@ export function HomeView() {
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
                       {/* Featured badge */}
                       <div className="absolute top-4 left-4">
-                        <Badge className="bg-blue-500/90 text-white backdrop-blur-md border-blue-400/30 px-3 py-1 text-xs font-bold shadow-lg shadow-blue-500/25">
+                        <Badge className="bg-blue-500/90 text-white backdrop-blur-md border-blue-400/30 px-3 py-1 text-xs font-bold">
                           <Award className="h-3 w-3 mr-1" />
                           Featured
                         </Badge>
@@ -497,8 +497,8 @@ export function HomeView() {
                 onClick={() => setSelectedCategory(null)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 shrink-0 ${
                   !selectedCategory
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25'
-                    : 'bg-white text-slate-600 border border-slate-200 shadow-sm'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
+                    : 'bg-white text-slate-600 border border-slate-200'
                 }`}
                 whileTap={{ scale: 0.95 }}
               >
@@ -510,8 +510,8 @@ export function HomeView() {
                   onClick={() => setSelectedCategory(cat.slug)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 shrink-0 ${
                     selectedCategory === cat.slug
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25'
-                      : 'bg-white text-slate-600 border border-slate-200 shadow-sm'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
+                      : 'bg-white text-slate-600 border border-slate-200'
                   }`}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -540,12 +540,12 @@ export function HomeView() {
                 transition={{ delay: i * 0.05 }}
                 whileHover={{ scale: 1.05, y: -4 }}
                 onClick={() => setSelectedCategory(cat.slug)}
-                className={`group relative overflow-hidden flex flex-col items-center gap-3 p-4 sm:p-5 rounded-2xl border border-border/30 hover:border-blue-400/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 bg-gradient-to-br ${categoryGradients[i % categoryGradients.length]}`}
+                className={`group relative overflow-hidden flex flex-col items-center gap-3 p-4 sm:p-5 rounded-2xl border border-border/30 hover:border-blue-400/50 transition-all duration-300 bg-gradient-to-br ${categoryGradients[i % categoryGradients.length]}`}
               >
                 {/* Glassmorphism overlay on hover */}
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/60 dark:group-hover:bg-white/5 backdrop-blur-sm transition-all duration-300 rounded-2xl" />
 
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shadow-lg ring-1 ring-black/5">
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden ring-1 ring-black/5">
                   <img
                     src={cat.image}
                     alt={cat.name}
@@ -794,7 +794,7 @@ export function HomeView() {
               <Button
                 variant="outline"
                 onClick={() => setSortOpen(!sortOpen)}
-                className="flex items-center gap-2 rounded-xl px-4 focus:ring-2 focus:ring-blue-500/20 shadow-sm"
+                className="flex items-center gap-2 rounded-xl px-4 focus:ring-2 focus:ring-blue-500/20"
               >
                 <SlidersHorizontal className="h-4 w-4" />
                 <span className="text-sm">
@@ -811,7 +811,7 @@ export function HomeView() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 z-50 min-w-[200px] rounded-xl bg-white dark:bg-slate-800 border border-border/50 shadow-xl overflow-hidden"
+                    className="absolute right-0 top-full mt-2 z-50 min-w-[200px] rounded-xl bg-white dark:bg-slate-800 border border-border/50 overflow-hidden"
                   >
                     {sortOptions.map((opt) => (
                       <button

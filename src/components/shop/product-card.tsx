@@ -2,7 +2,7 @@
 
 import { useShopStore } from '@/store/shop-store';
 import { formatINR, calculateDiscount } from '@/lib/format';
-import { Star, ShoppingCart, Heart, Flame, Truck } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Truck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ProductType, CartItemType } from '@/lib/types';
 import { toast } from 'sonner';
@@ -63,15 +63,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       }}
     >
       <div
-        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl transition-all duration-500 ease-out hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-300/40"
+        className="group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200/60 bg-white transition-all duration-300 hover:border-blue-200/80 hover:scale-[1.02]"
         onClick={() => navigateToProduct(product.id)}
       >
-        {/* Animated gradient border effect on hover */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 -z-10 blur-sm" />
-        <div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-blue-400/30 via-purple-400/20 to-pink-400/30 -z-10" />
-
         {/* Image Section */}
-        <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100/80">
+        <div className="relative aspect-[4/5] overflow-hidden bg-slate-50">
           <img
             src={mainImage}
             alt={product.name}
@@ -79,55 +75,22 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             loading="lazy"
           />
 
-          {/* Inner shadow / vignette effect */}
-          <div className="absolute inset-0 shadow-[inset_0_-40px_60px_-20px_rgba(0,0,0,0.15)] pointer-events-none" />
-
-          {/* Gradient overlay from bottom for text readability */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-
-          {/* Hover blue tint */}
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-600/8 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-          {/* Badges - Top Left */}
-          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
+          {/* Badges - Top Left - Static, no animation */}
+          <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10">
             {discount > 0 && (
-              <motion.div
-                animate={{ y: [0, -2, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Badge
-                  className="bg-gradient-to-r from-emerald-400 to-emerald-600 hover:from-emerald-400 hover:to-emerald-600 text-white font-bold text-[10px] px-2.5 py-0.5 rounded-lg shadow-lg shadow-emerald-500/30 border-0 backdrop-blur-sm bg-clip-padding"
-                  style={{ background: 'linear-gradient(135deg, rgba(52,211,153,0.9), rgba(16,185,129,0.95))' }}
-                >
-                  {discount}% OFF
-                </Badge>
-              </motion.div>
+              <Badge className="bg-emerald-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-md border-0">
+                {discount}% OFF
+              </Badge>
             )}
             {product.newArrival && (
-              <motion.div
-                animate={{ y: [0, -2, 0], scale: [1, 1.03, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Badge
-                  className="text-white font-bold text-[10px] px-2.5 py-0.5 rounded-lg shadow-lg shadow-blue-500/30 border-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.9), rgba(37,99,235,0.95))' }}
-                >
-                  NEW
-                </Badge>
-              </motion.div>
+              <Badge className="bg-blue-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-md border-0">
+                NEW
+              </Badge>
             )}
             {product.onSale && (
-              <motion.div
-                animate={{ y: [0, -2, 0] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Badge
-                  className="text-white font-bold text-[10px] px-2.5 py-0.5 rounded-lg shadow-lg shadow-red-500/40 border-0"
-                  style={{ background: 'linear-gradient(135deg, rgba(239,68,68,0.9), rgba(220,38,38,0.95))', boxShadow: '0 0 12px rgba(239,68,68,0.3)' }}
-                >
-                  SALE
-                </Badge>
-              </motion.div>
+              <Badge className="bg-red-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-md border-0">
+                SALE
+              </Badge>
             )}
           </div>
 
@@ -141,7 +104,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             <motion.div
               animate={wishBounce ? { scale: [1, 1.4, 0.9, 1.2, 1] } : { scale: 1 }}
               transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="w-9 h-9 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center shadow-lg shadow-black/8 border border-white/50 transition-all duration-300 hover:bg-white/95 hover:shadow-xl hover:scale-110"
+              className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center border border-slate-200/50 transition-all duration-200 hover:bg-white hover:scale-110"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -152,7 +115,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                   transition={{ duration: 0.2, ease: 'easeOut' }}
                 >
                   <Heart
-                    className={`h-4 w-4 transition-colors ${
+                    className={`h-3.5 w-3.5 transition-colors ${
                       inWishlist
                         ? 'fill-red-500 text-red-500'
                         : 'text-slate-400'
@@ -165,52 +128,37 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Low Stock Badge - Bottom Left */}
           {isLowStock && (
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="absolute bottom-2.5 left-2.5 z-10"
-            >
-              <div
-                className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-lg text-white shadow-lg"
-                style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.95), rgba(234,88,12,0.95))', boxShadow: '0 4px 14px rgba(245,158,11,0.3)' }}
-              >
-                <Flame className="h-3 w-3" />
-                Only {product.stock} left!
+            <div className="absolute bottom-2.5 left-2.5 z-10">
+              <div className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md text-white bg-amber-500">
+                Only {product.stock} left
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Out of Stock Overlay */}
           {isOutOfStock && (
-            <div className="absolute inset-0 bg-white/50 backdrop-blur-[6px] flex items-center justify-center z-20">
-              <div
-                className="px-6 py-2 rounded-xl shadow-2xl border border-white/30"
-                style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(241,245,249,0.9))', backdropFilter: 'blur(10px)' }}
-              >
-                <span className="text-sm font-bold text-slate-700 tracking-wide uppercase">Out of Stock</span>
-              </div>
+            <div className="absolute inset-0 bg-white/50 backdrop-blur-[3px] flex items-center justify-center z-20">
+              <span className="text-xs font-bold text-slate-600 uppercase tracking-wider bg-white/90 px-4 py-1.5 rounded-full border border-slate-200">
+                Out of Stock
+              </span>
             </div>
           )}
 
           {/* Quick Add to Cart */}
           <div className="absolute bottom-2.5 right-2.5 z-20">
-            <motion.div
-              initial={{ opacity: 0, y: 16, scale: 0.8 }}
-              whileHover={{ scale: 1.08 }}
-              className="opacity-0 translate-y-3 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-400 ease-out sm:opacity-100 sm:translate-y-0"
-            >
+            <div className="opacity-0 translate-y-3 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300 ease-out sm:opacity-100 sm:translate-y-0">
               <motion.button
                 whileTap={{ scale: 0.85 }}
                 animate={cartBounce ? { scale: [1, 1.3, 0.9, 1.1, 1] } : {}}
                 transition={{ duration: 0.4 }}
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 hover:from-blue-400 hover:via-blue-500 hover:to-blue-600 text-white flex items-center justify-center shadow-xl shadow-blue-500/30 disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300 border border-white/20"
+                className="w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-colors duration-200"
                 aria-label="Add to cart"
               >
                 <ShoppingCart className="h-4 w-4" />
               </motion.button>
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -224,16 +172,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           )}
 
           {/* Product Name */}
-          <h3 className="font-semibold text-xs sm:text-sm leading-snug line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] text-slate-800 group-hover:text-blue-600 transition-colors duration-300">
+          <h3 className="font-semibold text-xs sm:text-sm leading-snug line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] text-slate-800 group-hover:text-blue-600 transition-colors duration-200">
             {product.name}
           </h3>
 
           {/* Rating */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <div
-              className="flex items-center gap-0.5 text-white px-1.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold shadow-md"
-              style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)', boxShadow: '0 2px 8px rgba(59,130,246,0.3)' }}
-            >
+            <div className="flex items-center gap-0.5 bg-blue-600 text-white px-1.5 py-0.5 rounded-md text-[10px] sm:text-[11px] font-bold">
               {product.rating}
               <Star className="h-2.5 w-2.5 fill-white ml-0.5" />
             </div>
@@ -252,10 +197,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <span className="text-[10px] sm:text-xs text-slate-400 line-through font-medium">
                   {formatINR(product.originalPrice)}
                 </span>
-                <span
-                  className="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-md text-emerald-700"
-                  style={{ background: 'linear-gradient(135deg, rgba(167,243,208,0.6), rgba(110,231,183,0.5))' }}
-                >
+                <span className="text-[9px] sm:text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">
                   {discount}% off
                 </span>
               </>

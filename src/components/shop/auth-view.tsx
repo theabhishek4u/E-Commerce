@@ -256,7 +256,7 @@ export function AuthView() {
             </div>
 
             {/* Form Card - on mobile overlaps the header */}
-            <div className="bg-white rounded-2xl lg:rounded-2xl shadow-xl shadow-slate-200/50 lg:shadow-lg lg:shadow-slate-200/80 border border-slate-100 p-6 sm:p-8 -mt-8 lg:mt-0 relative z-10">
+            <div className="bg-white rounded-2xl lg:rounded-2xl  border border-slate-100 p-6 sm:p-8 -mt-8 lg:mt-0 relative z-10">
               <form onSubmit={handleSubmit} className="space-y-5">
                 <AnimatePresence mode="wait">
                   {!isLogin && (
@@ -320,7 +320,7 @@ export function AuthView() {
                 {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full h-12 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 rounded-xl transition-all duration-200 mt-2"
+                  className="w-full h-12 text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white  hover:-translate-y-0.5 active:translate-y-0 rounded-xl transition-all duration-200 mt-2"
                   disabled={loading}
                 >
                   {loading ? (

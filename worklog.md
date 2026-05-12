@@ -31,3 +31,55 @@ Stage Summary:
 - iOS safe area support via env(safe-area-inset-bottom)
 - Touch-friendly: disabled tap highlight, no text selection on interactive elements
 - Search focus triggered from mobile bottom nav via custom events
+
+---
+Task ID: 2
+Agent: Main
+Task: UI improvements - Clean up wishlist view, remove all drop shadows, polish ProductCard
+
+Work Log:
+- Completely rewrote wishlist-view.tsx for a clean minimal design:
+  - Removed discount badge overlay from product images
+  - Removed gradient overlay on hover
+  - Removed shadow classes from cards and buttons
+  - Clean layout: just product image, brand, name, price, and add-to-cart
+  - Out of stock overlay is clean and minimal
+  - Remove button is subtle, always visible
+- Rewrote product-card.tsx for cleaner design:
+  - Removed animated floating badges (bounce animation removed)
+  - Made badges static and simpler (no shadows, no gradients with rgba inline styles)
+  - Removed vignette inner shadow, gradient overlays, hover blue tint
+  - Removed gradient border effects on hover
+  - Cleaned up wishlist button (smaller, no shadows)
+  - Removed shadow-2xl from card hover
+  - Cart button is simpler with no shadows
+  - Rating badge uses simple bg-blue-600 instead of gradient with shadow
+- Removed ALL drop shadows from entire project:
+  - header.tsx: 16 shadow removals (shadow-brand, shadow-lg, shadow-xl, shadow-sm, shadow-md)
+  - mobile-bottom-nav.tsx: 5 shadow removals (container shadow, search pill, animated boxShadow, drop-shadow, badge shadow)
+  - home-view.tsx: 11 shadow removals (hero buttons, featured card, category chips, category images, sort button, sort dropdown)
+  - cart-view.tsx: 9 shadow removals (empty cart, buttons, order summary, quantity buttons, sticky bottom)
+  - product-detail-view.tsx: 13 shadow removals (image, badges, thumbnails, buttons, review cards, sticky bottom)
+  - order-success-view.tsx: 4 shadow removals
+  - orders-view.tsx: 9 shadow removals
+  - order-detail-view.tsx: 6 shadow removals
+  - auth-view.tsx: 2 shadow removals
+  - user-dashboard-view.tsx: 11 shadow removals (including shadowColor stat property)
+  - checkout-view.tsx: 12 shadow removals
+  - admin-view.tsx: 2 shadow removals
+  - footer.tsx: 1 shadow removal
+- Cleaned up globals.css:
+  - .shadow-brand / .shadow-brand-lg → box-shadow: none
+  - .btn-brand → removed box-shadow
+  - .card-hover:hover → removed box-shadow
+  - @keyframes pulseGlow → replaced box-shadow with opacity
+  - .glass-premium → box-shadow: none
+  - .focus-ring-blue → removed outer glow shadow layer
+  - @keyframes badgePulse → removed box-shadow
+- Lint passes cleanly with zero errors
+
+Stage Summary:
+- Wishlist view is now "kanta clean clear" - minimal product cards with no text overlays, no offer badges on images
+- ProductCard is much cleaner - static badges, no shadows, no animated floating effects
+- ALL drop shadows removed from every component and CSS utility in the project
+- Overall UI is cleaner, flatter, and more modern without the heavy shadow effects

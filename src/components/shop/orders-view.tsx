@@ -90,7 +90,7 @@ export function OrdersView() {
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 shadow-md shadow-blue-500/20">
+          <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500">
             <Package className="h-5 w-5 text-white" />
           </div>
           <h1 className="text-xl sm:text-2xl font-bold font-heading tracking-tight">My Orders</h1>
@@ -101,11 +101,11 @@ export function OrdersView() {
       <div className="relative mb-6 sm:mb-8">
         {/* Gradient top accent */}
         <div className="absolute -top-px left-6 right-6 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full" />
-        <Card className="border-border/20 bg-white/70 backdrop-blur-xl shadow-lg shadow-slate-200/40 overflow-hidden">
+        <Card className="border-border/20 bg-white/70 backdrop-blur-xl  overflow-hidden">
           <CardContent className="p-4 sm:p-6">
             <h2 className="font-semibold font-heading mb-3 text-sm sm:text-base text-slate-700">Find your orders</h2>
             <form onSubmit={handleSearch} className="flex gap-2 sm:gap-3">
-              <div className={`flex-1 relative rounded-lg transition-all duration-300 ${inputFocused ? 'ring-2 ring-blue-400/40 shadow-md shadow-blue-500/10' : ''}`}>
+              <div className={`flex-1 relative rounded-lg transition-all duration-300 ${inputFocused ? 'ring-2 ring-blue-400/40 ' : ''}`}>
                 <Input
                   type="email"
                   placeholder="Enter email used while ordering"
@@ -118,7 +118,7 @@ export function OrdersView() {
               </div>
               <Button
                 type="submit"
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shrink-0 h-10 px-5 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300"
+                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shrink-0 h-10 px-5 transition-all duration-300"
                 disabled={loading}
               >
                 {loading ? (
@@ -175,7 +175,7 @@ export function OrdersView() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: index * 0.06, ease: 'easeOut' }}
               >
-                <Card className="overflow-hidden border-border/20 bg-white/70 backdrop-blur-xl shadow-md shadow-slate-200/30 hover:shadow-lg hover:shadow-slate-200/40 transition-all duration-300 group">
+                <Card className="overflow-hidden border-border/20 bg-white/70 backdrop-blur-xl  transition-all duration-300 group">
                   <CardContent className="p-0">
                     {/* Gradient top border */}
                     <div className={`h-[2px] bg-gradient-to-r ${statusCfg.gradient}`} />
@@ -198,7 +198,7 @@ export function OrdersView() {
                           <p className="font-bold text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">{formatINR(order.totalAmount)}</p>
                         </div>
                       </div>
-                      <Badge className={`${statusCfg.badge} font-semibold text-[10px] sm:text-xs px-2.5 py-0.5 shadow-sm`}>
+                      <Badge className={`${statusCfg.badge} font-semibold text-[10px] sm:text-xs px-2.5 py-0.5 `}>
                         {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                       </Badge>
                     </div>
@@ -209,12 +209,12 @@ export function OrdersView() {
                     <div className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
                       <div className="flex -space-x-2 sm:-space-x-2.5">
                         {order.items.slice(0, 3).map((item) => (
-                          <div key={item.id} className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 border-white bg-slate-50 shadow-sm">
+                          <div key={item.id} className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 border-white bg-slate-50 ">
                             <img src={item.productImage} alt={item.productName} className="w-full h-full object-cover" />
                           </div>
                         ))}
                         {order.items.length > 3 && (
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-[10px] sm:text-xs font-bold text-slate-500 border-2 border-white shadow-sm relative">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-[10px] sm:text-xs font-bold text-slate-500 border-2 border-white  relative">
                             <span>+{order.items.length - 3}</span>
                           </div>
                         )}

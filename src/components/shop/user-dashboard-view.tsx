@@ -30,7 +30,7 @@ export function UserDashboardView() {
   if (!user) return (
     <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16 text-center">
       <p className="text-sm sm:text-base text-muted-foreground">Please login first</p>
-      <Button className="mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/25" onClick={() => setCurrentView('auth')}>Login</Button>
+      <Button className="mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white " onClick={() => setCurrentView('auth')}>Login</Button>
     </div>
   );
 
@@ -73,7 +73,7 @@ export function UserDashboardView() {
               {/* User Avatar with Gradient Ring */}
               <div className="flex flex-col items-center mb-5">
                 <div className="relative mb-3">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-blue-600 p-[3px] shadow-lg shadow-blue-500/20">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-blue-600 p-[3px] ">
                     <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 flex items-center justify-center">
                       <span className="text-xl font-bold text-gradient-blue">{user.name?.charAt(0).toUpperCase()}</span>
                     </div>
@@ -97,13 +97,13 @@ export function UserDashboardView() {
                       className={`
                         w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-300
                         ${isActive
-                          ? 'bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-blue-500/10 text-blue-700 dark:text-blue-400 shadow-sm shadow-blue-500/10 border border-blue-200/40 dark:border-blue-800/40'
+                          ? 'bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-blue-500/10 text-blue-700 dark:text-blue-400  border border-blue-200/40 dark:border-blue-800/40'
                           : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400'
                         }
                       `}
                     >
                       <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors ${
-                        isActive ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
+                        isActive ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white ' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
                       }`}>
                         <t.icon className="h-3.5 w-3.5" />
                       </div>
@@ -123,7 +123,7 @@ export function UserDashboardView() {
             <div className="h-0.5 bg-gradient-to-r from-blue-500 via-violet-500 to-blue-600" />
             <div className="p-3 flex items-center gap-3">
               <div className="relative">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-blue-600 p-[2px] shadow-md shadow-blue-500/20">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-500 via-violet-500 to-blue-600 p-[2px] ">
                   <div className="w-full h-full rounded-full bg-white dark:bg-slate-900 flex items-center justify-center">
                     <span className="text-sm font-bold text-gradient-blue">{user.name?.charAt(0).toUpperCase()}</span>
                   </div>
@@ -148,7 +148,7 @@ export function UserDashboardView() {
                   className={`
                     flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-medium transition-all duration-300 whitespace-nowrap shrink-0
                     ${isActive
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30'
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white '
                       : 'glass text-slate-600 dark:text-slate-400 hover:bg-white/80 dark:hover:bg-slate-800/80'
                     }
                   `}
@@ -169,9 +169,9 @@ export function UserDashboardView() {
               {/* Premium Stat Cards */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                 {[
-                  { label: 'Orders', value: orders.length, color: 'from-blue-500 to-blue-600', icon: Package, shadowColor: 'shadow-blue-500/20' },
-                  { label: 'Wishlist', value: wishlistCount, color: 'from-rose-500 to-pink-600', icon: Heart, shadowColor: 'shadow-rose-500/20' },
-                  { label: 'Total Spent', value: formatINR(totalSpent), color: 'from-violet-500 to-blue-600', icon: IndianRupee, shadowColor: 'shadow-violet-500/20' },
+                  { label: 'Orders', value: orders.length, color: 'from-blue-500 to-blue-600', icon: Package },
+                  { label: 'Wishlist', value: wishlistCount, color: 'from-rose-500 to-pink-600', icon: Heart },
+                  { label: 'Total Spent', value: formatINR(totalSpent), color: 'from-violet-500 to-blue-600', icon: IndianRupee },
                 ].map((stat, i) => {
                   const Icon = stat.icon;
                   return (
@@ -186,7 +186,7 @@ export function UserDashboardView() {
                       <div className="p-4 sm:p-5">
                         <div className="flex items-center justify-between mb-2 sm:mb-3">
                           <p className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider font-medium">{stat.label}</p>
-                          <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center shadow-md ${stat.shadowColor}`}>
+                          <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center `}>
                             <Icon className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-white" />
                           </div>
                         </div>
@@ -278,7 +278,7 @@ export function UserDashboardView() {
                   <Package className="h-12 w-12 text-slate-300 mx-auto mb-3" />
                   <p className="text-muted-foreground text-sm">No orders yet</p>
                   <Button
-                    className="mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/25 text-sm"
+                    className="mt-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white  text-sm"
                     onClick={() => setCurrentView('home')}
                   >
                     Start Shopping
